@@ -54,13 +54,13 @@ export default {
           sessionStorage.setItem('userId', this.loginResponse.userId)
           sessionStorage.setItem('roleName', this.loginResponse.roleName)
         }).catch(error => {
-          this.errorResponse = error.response.data
-          const httpsStatusCode = error.response.status
-          if (this.errorResponse.errorCode === 111 && httpsStatusCode === 403) {
-
-          }
-        }
-
+              this.errorResponse = error.response.data
+              const httpsStatusCode = error.response.status
+              if (this.errorResponse.errorCode === 111 && httpsStatusCode === 403) {
+                this.errorMessage = this.errorResponse.message
+                setTimeout(this.errorResponse.message, 4000)
+              }
+            }
         )
       }
     },

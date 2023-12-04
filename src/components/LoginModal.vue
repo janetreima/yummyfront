@@ -14,7 +14,7 @@
       </div>
     </template>
     <template #footer>
-      <button type="button" class="btn btn-outline-dark">Logi sisse</button>
+      <button @click="login" type="button" class="btn btn-outline-dark">Logi sisse</button>
     </template>
   </Modal>
 </template>
@@ -25,11 +25,45 @@ import Modal from "@/components/Modal.vue";
 export default {
   name: 'LoginModal',
   components: {Modal},
-  methods: {
-
+  data() {
+    return {
+      username: '',
+      password: '',
+      loginResponse: {
+        userId: 0,
+        roleName: ''
+      },
+      errorResponse: {
+        message: '',
+        errorCode: 0,
+      },
+      errorMessage: '',
+    }
   },
+  methods: {
+    login() {
+      if (this.allRequiredFieldsAreFilled()) {
+        this.$http.get("/login", {
+          params: {
+            username: this.username,
+            password: this.password
+          },
+        }).then(response => {
+          this.loginResponse = response.data;
+          sessionStorage.setItem('userId', this.loginResponse.userId)
+          sessionStorage.setItem('roleName', this.loginResponse.roleName)
+        }).catch(error => {
+          alert('error')
+        })
+      }
+    },
 
+    allRequiredFieldsAreFilled() {
+      return this.username.length > 0 && this.password.length > 0;
+    },
+
+
+},
 }
-
 </script>
 

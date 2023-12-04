@@ -3,16 +3,10 @@
   <div class="container text-center">
     <div class="row">
       <div class="col">
-        Column
       </div>
       <div class="col">
         <nav>
-
-
           <button @click="openLoginModal" type="button" class="btn btn-outline-dark">Logi sisse</button>
-          <router-link to="/">Home</router-link>
-          |
-          <router-link to="/about">About</router-link>
         </nav>
       </div>
     </div>

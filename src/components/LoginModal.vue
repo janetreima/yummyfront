@@ -1,7 +1,7 @@
 <template>
   <Modal ref="modalRef" button-name="Logi sisse">
     <template #header>
-      Logi sisse
+      <ErrorAlert :error-message="errorMessage"/>
     </template>
     <template #body>
       <div class="input-group mb-3">
@@ -21,10 +21,11 @@
 
 <script>
 import Modal from "@/components/Modal.vue";
+import ErrorAlert from "@/components/ErrorAlert.vue";
 
 export default {
   name: 'LoginModal',
-  components: {Modal},
+  components: {ErrorAlert, Modal},
   data() {
     return {
       username: '',
@@ -49,12 +50,18 @@ export default {
             password: this.password
           },
         }).then(response => {
-          this.loginResponse = response.data;
+          this.loginResponse = response.data
           sessionStorage.setItem('userId', this.loginResponse.userId)
           sessionStorage.setItem('roleName', this.loginResponse.roleName)
         }).catch(error => {
-          alert('error')
-        })
+          this.errorResponse = error.response.data
+          const httpsStatusCode = error.response.status
+          if (this.errorResponse.errorCode === 111 && httpsStatusCode === 403) {
+
+          }
+        }
+
+        )
       }
     },
 
@@ -63,7 +70,7 @@ export default {
     },
 
 
-},
+  },
 }
 </script>
 

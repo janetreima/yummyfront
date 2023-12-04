@@ -1,41 +1,35 @@
 <template>
-<LoginModal ref="loginModalRef"/>
+  <LoginModal ref="loginModalRef"/>
   <div class="container text-center">
     <div class="row">
       <div class="col">
-        Column
       </div>
       <div class="col">
         <nav>
-          <button @click="openLoginModal" type="button" class="btn btn-dark">Logi sisse</button>
-
-          <router-link  to="/">Home</router-link>
-          |
-          <router-link to="/about">About</router-link>
+          <button @click="openLoginModal" type="button" class="btn btn-outline-dark">Logi sisse</button>
         </nav>
       </div>
     </div>
   </div>
-
-
   <router-view/>
 </template>
+
 
 <script>
 
 import LoginModal from "@/components/LoginModal.vue";
 
-    export default {
-      components: {LoginModal},
-      methods: {
-        openLoginModal() {
-          this.$refs.loginModalRef.$refs.modalRef.openModal()
-        }
-      }
+export default {
+  components: {LoginModal},
+  methods: {
 
+    openLoginModal() {
+      this.$refs.loginModalRef.$refs.modalRef.openModal()
     }
 
 
-
+    ,
+  }
+}
 
 </script>

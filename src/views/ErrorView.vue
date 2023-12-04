@@ -1,15 +1,10 @@
 <template>
-
+  <h1>Oih, midagi läks valesti.</h1>
 </template>
 
 <script>
-import {defineComponent} from 'vue'
-
-export default{
-  name: "ErrorView"
-
-
+export default {
+  name: 'ErrorView'
 }
 </script>
-
 

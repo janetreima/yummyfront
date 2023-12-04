@@ -25,14 +25,12 @@
 </template>
 
 <script>
-console.log("Olen siin Modal.vue")
-
 export default {
   name: 'Modal',
   props: {
     buttonName: String
   },
-  data() {
+  data(){
     return {
       isOpen: false,
     }

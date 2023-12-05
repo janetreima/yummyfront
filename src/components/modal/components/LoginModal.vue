@@ -17,16 +17,15 @@
       </div>
     </template>
     <template #footer>
-      <button @click="login" type="submit" class="btn btn-outline-dark">Logi sisse</button>
+      <button @keyup.enter="login" @click="login" type="submit" class="btn btn-outline-dark">Logi sisse</button>
     </template>
   </Modal>
 </template>
 
 <script>
-import Modal from "@/components/Modal.vue";
-import router from "@/router";
-import ErrorAlert from "@/components/ErrorAlert.vue";
-import errorAlert from "@/components/ErrorAlert.vue";
+import Modal from "@/components/modal/Modal.vue";
+import ErrorAlert from "@/components/Errors/ErrorAlert.vue";
+
 
 export default {
   name: 'LogInModal',
@@ -60,7 +59,7 @@ export default {
     },
     handleErrorAlert() {
       this.errorMessage = 'Palun taita koik asjad :)'
-      setTimeout(this.resetErrorAlert, 3000)
+      setTimeout(this.resetErrorAlert, 2000)
     },
     resetErrorAlert() {
       return this.errorMessage = '';
@@ -77,9 +76,15 @@ export default {
       }).then(response => {
         this.loginResponse = response.data
         sessionStorage.setItem('userId', this.loginResponse.userId)
-        sessionStorage.setItem('password', this.loginResponse.password)
+        sessionStorage.setItem('roleName', this.loginResponse.roleName)
+
+
 
         this.$refs.modalRef.closeModal()
+        this.$emit('event-login-success')
+        //router.push({name: 'logInView'})
+
+
 
         //Go to MyPage view
 
@@ -89,7 +94,7 @@ export default {
             const httpStatusCode = error.response.status
             if (httpStatusCode === 403 && this.errorResponse.errorCode === 111) {
               this.errorMessage = this.errorResponse.message
-              setTimeout(this.resetErrorAlert, 3000)
+              setTimeout(this.resetErrorAlert, 2000)
 
             }
           })

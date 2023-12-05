@@ -1,5 +1,6 @@
 <template>
   <LogInModal ref="loginModalRef"/>
+  <RegistrationModal ref="registrationModalRef"/>
   <div class="container text-center">
     <div class="row">
       <div class="col">
@@ -8,12 +9,8 @@
 
       <div class="col">
         <nav>
-          <router-link to="/">
             <button @click="openLoginModal" type="button" class="btn btn-outline-dark">Logi Sisse</button>
-          </router-link>
-          <router-link to="/about">
-            <button type="button" class="btn btn-outline-dark">Registreeri</button>
-          </router-link>
+            <button @click="openRegistrationModal" type="button" class="btn btn-outline-dark">Registreeri</button>
 
         </nav>
       </div>
@@ -28,12 +25,16 @@
 <script>
 
 import LogInModal from "@/components/LoginModal.vue";
+import RegistrationModal from "@/components/RegistrationModal.vue";
 
 export default {
-  components: {LogInModal},
+  components: {RegistrationModal, LogInModal},
   methods: {
     openLoginModal() {
       this.$refs.loginModalRef.$refs.modalRef.openModal()
+    },
+    openRegistrationModal() {
+      this.$refs.registrationModalRef.$refs.modalRef.openModal()
     },
   }
 }

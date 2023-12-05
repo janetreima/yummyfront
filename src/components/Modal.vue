@@ -28,9 +28,6 @@
 <script>
 export default {
   name: 'Modal',
-  props: {
-    buttonName: String
-  },
   data() {
     return {
       isOpen: false,
@@ -38,9 +35,13 @@ export default {
   },
   methods: {
     openModal() {
+      console.log('openModal')
+
       this.isOpen = true
     },
     closeModal() {
+      console.log('closeModal')
+
       this.isOpen = false
     }
   }

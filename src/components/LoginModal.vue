@@ -50,7 +50,6 @@ export default {
   methods: {
 
     login() {
-      console.log('login')
 
       if (this.allRequiredFieldsAreField()) {
         this.sendLoginRequest();
@@ -60,22 +59,18 @@ export default {
 
     },
     handleErrorAlert() {
-      console.log('handleErrorAlert')
       this.errorMessage = 'Palun taita koik asjad :)'
       setTimeout(this.resetErrorAlert, 3000)
     },
     resetErrorAlert() {
-      console.log('resetErrorAlert')
 
       return this.errorMessage = '';
     },
     allRequiredFieldsAreField() {
-      console.log('allRequiredFieldsAreField')
 
       return this.password.length > 0 && this.username.length > 0;
     },
     sendLoginRequest() {
-      console.log('sendLoginRequest')
 
       this.$http.get("/login", {
         params: {

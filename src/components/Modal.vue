@@ -35,12 +35,12 @@ export default {
   },
   methods: {
     openModal() {
-      console.log('openModal')
+
 
       this.isOpen = true
     },
     closeModal() {
-      console.log('closeModal')
+
 
       this.isOpen = false
     }

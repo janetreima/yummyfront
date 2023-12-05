@@ -18,6 +18,7 @@
         <div class="modal-footer">
           <slot name="footer">
           </slot>
+
         </div>
       </div>
     </div>
@@ -30,7 +31,7 @@ export default {
   props: {
     buttonName: String
   },
-  data(){
+  data() {
     return {
       isOpen: false,
     }

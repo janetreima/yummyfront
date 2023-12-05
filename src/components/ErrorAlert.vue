@@ -1,9 +1,9 @@
 <template>
-  <div v-if="errorMessage.length > 0" class="alert alert-danger" role="alert">
+  <div v-if="0<errorMessage.length" class="alert alert-warning" role="alert">
     {{ errorMessage }}
   </div>
-</template>
 
+</template>
 <script>
 export default {
   name: 'ErrorAlert',
@@ -12,4 +12,6 @@ export default {
   }
 }
 </script>
+
+
 

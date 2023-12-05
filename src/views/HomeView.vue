@@ -22,7 +22,6 @@
         </div>
       </div>
       <div class="col col-10">
-        <h1>heheh</h1>
         <div class="d-flex flex-wrap">
           <RecipeCard/>
           <RecipeCard/>

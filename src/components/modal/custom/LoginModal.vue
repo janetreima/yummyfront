@@ -1,20 +1,24 @@
 <template>
-  <Modal ref="modalRef" button-name="Logi Sisse">
+  <Modal ref="modalRef" button-name="Logi sisse">
     <template #header>
       Logi Sisse
-      <div class="col col">
-        <ErrorAlert :error-message="errorMessage"/>
-      </div>
     </template>
     <template #body>
-      <div class="input-group mb-3">
-        <span class="input-group-text">Kasutajanimi</span>
-        <input v-model="username" type="text" class="form-control">
+      <div>
+        <ErrorAlert :error-message="errorMessage"/>
       </div>
-      <div class="input-group mb-3">
-        <span class="input-group-text">Parool</span>
-        <input v-model="password" type="text" class="form-control">
+
+      <div class="mt-4 mb-4">
+        <div class="input-group mb-3">
+          <span class="input-group-text">Kasutajanimi</span>
+          <input v-model="username" type="text" class="form-control">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">Parool</span>
+          <input v-model="password" type="text" class="form-control">
+        </div>
       </div>
+
     </template>
     <template #footer>
       <button @keyup.enter="login" @click="login" type="submit" class="btn btn-outline-dark">Logi sisse</button>
@@ -25,7 +29,6 @@
 <script>
 import Modal from "@/components/modal/Modal.vue";
 import ErrorAlert from "@/components/alert/ErrorAlert.vue";
-
 
 export default {
   name: 'LogInModal',
@@ -47,26 +50,25 @@ export default {
     }
   },
   methods: {
-
     login() {
-
       if (this.allRequiredFieldsAreField()) {
         this.sendLoginRequest();
-
-
       } else this.handleErrorAlert();
-
     },
+
     handleErrorAlert() {
-      this.errorMessage = 'Palun taita koik asjad :)'
+      this.errorMessage = 'Palun täida kõik väljad :)'
       setTimeout(this.resetErrorAlert, 2000)
     },
+
     resetErrorAlert() {
       return this.errorMessage = '';
     },
+
     allRequiredFieldsAreField() {
       return this.password.length > 0 && this.username.length > 0;
     },
+
     sendLoginRequest() {
       this.$http.get("/login", {
         params: {
@@ -77,27 +79,16 @@ export default {
         this.loginResponse = response.data
         sessionStorage.setItem('userId', this.loginResponse.userId)
         sessionStorage.setItem('roleName', this.loginResponse.roleName)
-
-
-
         this.$refs.modalRef.closeModal()
         this.$emit('event-login-success')
-        //router.push({name: 'logInView'})
-
-
-
-        //Go to MyPage view
-
-
       }).catch(error => {
-            this.errorResponse = error.response.data
-            const httpStatusCode = error.response.status
-            if (httpStatusCode === 403 && this.errorResponse.errorCode === 111) {
-              this.errorMessage = this.errorResponse.message
-              setTimeout(this.resetErrorAlert, 2000)
-
-            }
-          })
+        this.errorResponse = error.response.data
+        const httpStatusCode = error.response.status
+        if (httpStatusCode === 403 && this.errorResponse.errorCode === 111) {
+          this.errorMessage = this.errorResponse.message
+          setTimeout(this.resetErrorAlert, 2000)
+        }
+      })
     }
   }
 }

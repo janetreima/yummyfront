@@ -1,5 +1,5 @@
 <template>
-  <div class="card border-dark m-2" style="width: 13rem;">
+  <div class="card border-dark m-3" style="width: 14rem;">
     <RecipeImage :image-data-base64="recipe.imageData"/>
     <div class="card-body">
       <div class="d-flex">
@@ -12,9 +12,8 @@
   </div>
 </template>
 
-
 <script>
-import RecipeImage from "@/views/RecipeCardImage.vue";
+import RecipeImage from "@/components/RecipeCardImage.vue";
 
 export default {
   name: 'RecipeCard',
@@ -22,26 +21,25 @@ export default {
   data() {
     return {
       recipe: [
-          {
-        recipeId: 0,
-        userId: 0,
-        courseId: 0,
-        courseName: '',
-        imageId: 0,
-        imageData: '',
-        recipeName: '',
-        time: {
-          hour: 0,
-          minute: 0,
-          second: 0,
-          nano: 0
-        },
-        description: '',
-        status: ''
-      }
+        {
+          recipeId: 0,
+          userId: 0,
+          courseId: 0,
+          courseName: '',
+          imageId: 0,
+          imageData: '',
+          recipeName: '',
+          time: {
+            hour: 0,
+            minute: 0,
+            second: 0,
+            nano: 0
+          },
+          description: '',
+          status: ''
+        }
       ]
     }
-
-  },
+  }
 }
 </script>

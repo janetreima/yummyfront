@@ -24,7 +24,7 @@
 
 <script>
 import Modal from "@/components/modal/Modal.vue";
-import ErrorAlert from "@/components/errors/ErrorAlert.vue";
+import ErrorAlert from "@/components/alert/ErrorAlert.vue";
 
 
 export default {

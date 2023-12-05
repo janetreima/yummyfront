@@ -31,8 +31,8 @@
 
 <script>
 
-import LogInModal from "@/components/modal/components/LoginModal.vue";
-import LogOutModal from "@/components/modal/components/LogOutModal.vue";
+import LogInModal from "@/components/modal/custom/LoginModal.vue";
+import LogOutModal from "@/components/modal/custom/LogOutModal.vue";
 
 export default {
   components: {LogInModal, LogOutModal},

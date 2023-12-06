@@ -3,15 +3,12 @@
     <div class="row">
       <div class="col col-7">
         <h1>
-          {{ recipeId }}
-        </h1>
-        <h1>
-          Kanasupp
+          {{ recipe.recipeName }}
         </h1>
         <div class="d-flex gap-2">
           <font-awesome-icon :icon="['far', 'clock']" size="lg"/>
           <h6>
-            1 h 30 min
+            {{ recipeTimeInHoursAndMinutes }}
           </h6>
         </div>
         <h5 class="mt-3">
@@ -27,7 +24,7 @@
           Valmistamine
         </h5>
         <p class="w-75">
-          Sega koostisosad omavahel suures kausis, tagades ühtlase segu. Seejärel kuumuta segu mõõdukal kuumusel, kuni saavutad soovitud konsistentsi. Järgmise sammuna vala segu ettevalmistatud vormidesse ja aseta need ahju või külmikusse vastavalt retseptile. Lõpuks serveeri maitserikast rooga oma lemmiknõudel ja naudi!
+          {{ recipe.description }}
         </p>
       </div>
       <div class="col-5">
@@ -43,21 +40,53 @@ export default {
   name: 'RecipeView',
   components: {FontAwesomeIcon},
   props: {
-    recipeId: 0,
+    recipeId: Number,
     recipeName: String,
   },
   data() {
     return {
-
+      recipe: {
+        recipeName: '',
+        courseId: 0,
+        allergenInfos: [
+          {
+            allergenId: 0,
+            allergenName: '',
+            isaAvailable: true
+          }
+        ],
+        timeMinute: 0,
+        description: '',
+        imageData: ''
+      },
+      recipeTimeInHoursAndMinutes: String,
     }
   },
   methods: {
-},
+    getRecipe(recipeId) {
+      this.$http.get('/recipe', {
+        params: {
+          recipeId: this.recipeId
+        }
+      })
+          .then(response => {
+            this.recipe = response.data;
+            this.convertMinutesToHoursAndMinutes();
+          })
+          .catch(error => {
+            this.errorResponse = error.response.data;
+          });
+    },
+
+    convertMinutesToHoursAndMinutes() {
+      const minutes = this.recipe.timeMinute
+      const hours = Math.floor(minutes / 60);
+      const remainingMinutes = minutes % 60;
+      this.recipeTimeInHoursAndMinutes = `${hours} h ${remainingMinutes} min`;
+    },
+  },
   mounted() {
-    {
-      // const id = this.$route.params.id;
-    //   todo get 1 retsept selle id järgi ära ja siis täida väljad vajaliku infoga
-    }
+    this.getRecipe();
   }
 }
 </script>

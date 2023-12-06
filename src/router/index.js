@@ -12,12 +12,13 @@ const routes = [
   {
     path: '/error',
     name: 'errorRoute',
-    component: ErrorView
+    component: ErrorView,
   },
   {
-    path: '/recipe',
+    path: '/recipe/:recipeId',
     name: 'recipeRoute',
-    component: RecipeView
+    component: RecipeView,
+    props: true
   },
 ]
 

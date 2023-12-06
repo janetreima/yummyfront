@@ -3,6 +3,9 @@
     <div class="row">
       <div class="col col-7">
         <h1>
+          {{ recipeId }}
+        </h1>
+        <h1>
           Kanasupp
         </h1>
         <div class="d-flex gap-2">
@@ -37,7 +40,24 @@
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
 export default {
-  name: 'ErrorView',
-  components: {FontAwesomeIcon}
+  name: 'RecipeView',
+  components: {FontAwesomeIcon},
+  props: {
+    recipeId: 0,
+    recipeName: String,
+  },
+  data() {
+    return {
+
+    }
+  },
+  methods: {
+},
+  mounted() {
+    {
+      // const id = this.$route.params.id;
+    //   todo get 1 retsept selle id järgi ära ja siis täida väljad vajaliku infoga
+    }
+  }
 }
 </script>

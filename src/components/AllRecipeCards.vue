@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-wrap">
-    <RecipeCard v-for="recipe in recipes" :key="recipe.recipeId" :recipe-name="recipe.recipeName" ref="recipeCardRef"/>
+    <RecipeCard ref="recipeCardRef" v-for="recipe in recipes" :key="recipe.recipeId" :recipe-name="recipe.recipeName" :recipe-id="recipe.recipeId"/>
   </div>
 </template>
 
@@ -15,20 +15,11 @@ export default {
       recipes: [
         {
           recipeId: 0,
-          userId: 0,
-          courseId: 0,
-          courseName: '',
-          imageId: 0,
+          authorUserId: 0,
+          authorUsername: '',
           imageData: '',
           recipeName: '',
-          time: {
-            hour: 0,
-            minute: 0,
-            second: 0,
-            nano: 0
-          },
-          description: '',
-          status: ''
+          timeMinute: 0
         }
       ],
       errorResponse: {
@@ -38,14 +29,14 @@ export default {
     }
   },
   methods: {
-    getAllRecipes: function () {
-      this.$http.get('/recipe'
+    getAllRecipes() {
+      this.$http.get('/recipes'
       ).then(response => {
         this.recipes = response.data
       }).catch(error => {
         this.errorResponse = error.response.data;
       })
-    }
+    },
   },
   mounted() {
     this.getAllRecipes()

@@ -8,7 +8,7 @@
         </h5>
       </div>
       <div class="d-flex justify-content-end">
-        <a href="#" class="btn btn-outline-dark">Loe edasi</a>
+        <button class="btn btn-outline-dark" type="button" @click="goToRecipe">Vaata retsepti</button>
       </div>
     </div>
   </div>
@@ -16,35 +16,38 @@
 
 <script>
 import RecipeImage from "@/components/RecipeCardImage.vue";
+import router from "@/router";
 
 export default {
   name: 'RecipeCard',
   components: {RecipeImage},
   props: {
     recipeName: String,
+    recipeId: 0,
   },
   data() {
     return {
-      recipe: [
-        {
-          recipeId: 0,
-          userId: 0,
-          courseId: 0,
-          courseName: '',
-          imageId: 0,
-          imageData: '',
-          recipeName: '',
-          time: {
-            hour: 0,
-            minute: 0,
-            second: 0,
-            nano: 0
+      recipe:
+          {
+            recipeId: 0,
+            authorUserId: 0,
+            authorUsername: '',
+            imageData: '',
+            recipeName: '',
+            timeMinute: 0
           },
-          description: '',
-          status: ''
-        }
-      ]
+      text: 'Vaata',
     }
+  },
+
+  methods: {
+    router() {
+      return router
+    },
+
+  goToRecipe() {
+    router.push({path: 'recipe/' + this.recipeId})
+  },
   }
 }
 </script>

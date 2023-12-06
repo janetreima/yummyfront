@@ -28,9 +28,10 @@
 <script>
 import LogInModal from "@/components/modal/custom/LoginModal.vue";
 import LogOutModal from "@/components/modal/custom/LogOutModal.vue";
+import BasicButton from "@/components/BasicButton.vue";
 
 export default {
-  components: {LogInModal, LogOutModal},
+  components: {BasicButton, LogInModal, LogOutModal},
   data() {
     return {
       isLoggedIn: false,

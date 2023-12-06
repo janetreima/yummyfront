@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ErrorView from "@/views/ErrorView.vue";
+import RecipeView from "@/views/RecipeView.vue";
 
 const routes = [
   {
@@ -12,7 +13,12 @@ const routes = [
     path: '/error',
     name: 'errorRoute',
     component: ErrorView
-  }
+  },
+  {
+    path: '/recipe',
+    name: 'recipeRoute',
+    component: RecipeView
+  },
 ]
 
 const router = createRouter({

@@ -5,14 +5,7 @@
         <Filter/>
       </div>
       <div class="col col-10">
-        <div class="d-flex flex-wrap">
-          <RecipeCard/>
-          <RecipeCard/>
-          <RecipeCard/>
-          <RecipeCard/>
-          <RecipeCard/>
-          <RecipeCard/>
-        </div>
+        <AllRecipeCards/>
       </div>
     </div>
   </div>
@@ -22,8 +15,9 @@
 import {defineComponent} from "vue";
 import RecipeCard from "@/components/RecipeCard.vue";
 import Filter from "@/components/Filter.vue";
+import AllRecipeCards from "@/components/AllRecipeCards.vue";
 
 export default defineComponent({
-  components: {Filter, RecipeCard}
+  components: {AllRecipeCards, Filter, RecipeCard}
 })
 </script>

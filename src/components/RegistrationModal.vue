@@ -9,15 +9,15 @@
     <template #body>
       <div class="input-group mb-3">
         <span class="input-group-text">Kasutajanimi</span>
-        <input v-model="username" type="text" class="form-control">
+        <input v-model="userInfo.username" type="text" class="form-control">
       </div>
       <div class="input-group mb-3">
         <span class="input-group-text">Parool</span>
-        <input v-model="password" type="text" class="form-control">
+        <input v-model="userInfo.password" type="text" class="form-control">
       </div>
       <div class="input-group mb-3">
         <span class="input-group-text">email</span>
-        <input v-model="email" type="text" class="form-control">
+        <input v-model="userInfo.email" type="text" class="form-control">
       </div>
     </template>
     <template #footer>
@@ -30,21 +30,17 @@
 <script>
 
 import Modal from "@/components/Modal.vue";
-import ErrorAlert from "@/components/ErrorAlert.vue";
-
+import ErrorAlert from "@/components/ErrorAlert.vue"
 export default {
   name: 'RegistrationModal',
   components: {ErrorAlert, Modal},
   data() {
     return {
       errorMessage: '',
-      username: '',
-      password: '',
-      email: '',
-      registrationResponse: {
-        userId: 0,
-        roleName: '',
-        email: ''
+      userInfo: {
+        username: '',
+        password: '',
+        email: '',
       },
       errorResponse: {
         message: '',
@@ -79,20 +75,11 @@ export default {
       return this.errorMessage = '';
     },
     allRequiredFieldsAreField() {
-      return this.password.length > 0 && this.username.length > 0 && this.email.length > 0;
+      return this.userInfo.password.length > 0 && this.userInfo.username.length > 0 && this.userInfo.email.length > 0;
     },
     sendRegistrationRequest() {
-      this.$http.post("/registration", {
-        params: {
-          username: this.username,
-          password: this.password,
-          email: this.email
-        }
-      }).then(response => {
-        this.registrationResponse = response.data
-        sessionStorage.setItem('userId', this.registrationResponse.userId)
-        sessionStorage.setItem('email', this.registrationResponse.email)
-
+      this.$http.post("/registration", this.userInfo
+      ).then(response => {
         this.$refs.modalRef.closeModal()
 
       }).catch(error => {

@@ -9,9 +9,14 @@
         </div>
         <div class="d-flex gap-2">
           <font-awesome-icon :icon="['far', 'clock']" size="lg"/>
-          <h6>
-            {{ recipeTimeInHoursAndMinutes }}
+          <div class="d-flex gap-1">
+            <h6 v-if="hours > 0">
+            {{hours}} h
           </h6>
+          <h6 v-if="minutes > 0">
+            {{minutes}} min
+          </h6>
+          </div>
         </div>
         <ul class="list-group list-group-horizontal">
           <li v-for="allergenInfo in recipe.allergenInfos" class="list-group-item border-0">{{
@@ -71,7 +76,8 @@ export default {
         description: '',
         imageData: ''
       },
-      recipeTimeInHoursAndMinutes: String,
+      minutes: 0,
+      hours: 0,
       userId: 0,
     }
   },
@@ -92,10 +98,9 @@ export default {
     },
 
     convertMinutesToHoursAndMinutes() {
-      const minutes = this.recipe.timeMinute
-      const hours = Math.floor(minutes / 60);
-      const remainingMinutes = minutes % 60;
-      this.recipeTimeInHoursAndMinutes = `${hours} h ${remainingMinutes} min`;
+      const inputMinutes = this.recipe.timeMinute
+      this.hours = Math.floor(inputMinutes / 60);
+      this.minutes = inputMinutes % 60;
     },
   },
 

@@ -2,15 +2,23 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col col-7">
-        <h1>
-          {{ recipe.recipeName }}
-        </h1>
+        <div class="d-flex align-items-center gap-3">
+          <h1>
+            {{ recipe.recipeName }}
+          </h1>
+        </div>
         <div class="d-flex gap-2">
           <font-awesome-icon :icon="['far', 'clock']" size="lg"/>
           <h6>
             {{ recipeTimeInHoursAndMinutes }}
           </h6>
         </div>
+        <ul class="list-group list-group-horizontal">
+          <li v-for="allergenInfo in recipe.allergenInfos" class="list-group-item border-0">{{
+              allergenInfo.allergenName
+            }}
+          </li>
+        </ul>
         <h5 class="mt-3">
           Koostisosad
         </h5>
@@ -29,6 +37,10 @@
       </div>
       <div class="col-5">
         <img src="@/assets/recipethumbnail.png">
+        <div v-if="isLoggedIn" class="d-flex justify-content-end">
+          <button type="button" class="btn btn-outline-dark me-2">Muuda</button>
+          <button type="button" class="btn btn-outline-dark me-2">Kustuta</button>
+        </div>
       </div>
     </div>
   </div>
@@ -42,6 +54,7 @@ export default {
   props: {
     recipeId: Number,
     recipeName: String,
+    isLoggedIn: Boolean,
   },
   data() {
     return {
@@ -52,7 +65,6 @@ export default {
           {
             allergenId: 0,
             allergenName: '',
-            isaAvailable: true
           }
         ],
         timeMinute: 0,
@@ -60,6 +72,7 @@ export default {
         imageData: ''
       },
       recipeTimeInHoursAndMinutes: String,
+      userId: 0,
     }
   },
   methods: {
@@ -85,6 +98,7 @@ export default {
       this.recipeTimeInHoursAndMinutes = `${hours} h ${remainingMinutes} min`;
     },
   },
+
   mounted() {
     this.getRecipe();
   }

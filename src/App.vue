@@ -20,8 +20,8 @@
       </nav>
     </div>
   </div>
-  <div class="ms-5 me-5">
-    <router-view/>
+  <div id="app" class="ms-5 me-5">
+    <router-view :is-logged-in="isLoggedIn"/>
   </div>
 </template>
 

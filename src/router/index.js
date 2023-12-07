@@ -18,8 +18,11 @@ const routes = [
     path: '/recipe/:recipeId',
     name: 'recipeRoute',
     component: RecipeView,
-    props: true
-  },
+    props: (route) => ({
+      recipeId: parseInt(route.params.recipeId),
+      isLoggedIn: route.query.isLoggedIn === 'true'
+  }),
+  }
 ]
 
 const router = createRouter({

@@ -6,32 +6,32 @@
           <h1>
             {{ recipe.recipeName }}
           </h1>
+          <ul class="list-group list-group-horizontal">
+            <div v-for="allergenInfo in recipe.allergenInfos">
+              <li class="list-group-item border-0">
+                {{ allergenInfo.allergenName }}
+              </li>
+            </div>
+          </ul>
         </div>
         <div class="d-flex gap-2">
           <font-awesome-icon :icon="['far', 'clock']" size="lg"/>
           <div class="d-flex gap-1">
             <h6 v-if="hours > 0">
-            {{hours}} h
-          </h6>
-          <h6 v-if="minutes > 0">
-            {{minutes}} min
-          </h6>
+              {{ hours }} h
+            </h6>
+            <h6 v-if="minutes > 0">
+              {{ minutes }} min
+            </h6>
           </div>
         </div>
-        <ul class="list-group list-group-horizontal">
-          <li v-for="allergenInfo in recipe.allergenInfos" class="list-group-item border-0">{{
-              allergenInfo.allergenName
-            }}
-          </li>
-        </ul>
         <h5 class="mt-3">
           Koostisosad
         </h5>
         <ul class="list-group list-group-flush w-50">
-          <li class="list-group-item">1 kg koostisosa</li>
-          <li class="list-group-item">1 kg koostisosa</li>
-          <li class="list-group-item">1 kg koostisosa</li>
-          <li class="list-group-item">1 kg koostisosa</li>
+          <li v-for="ingredientInfo in recipe.ingredientInfos" class="list-group-item">{{ ingredientInfo.quantity }}
+            {{ ingredientInfo.measureUnitName }} {{ ingredientInfo.ingredientName }}
+          </li>
         </ul>
         <h5 class="mt-3">
           Valmistamine
@@ -40,7 +40,7 @@
           {{ recipe.description }}
         </p>
       </div>
-      <div class="col-5">
+      <div class="col col-5">
         <img src="@/assets/recipethumbnail.png">
         <div v-if="isLoggedIn" class="d-flex justify-content-end">
           <button type="button" class="btn btn-outline-dark me-2">Muuda</button>
@@ -52,10 +52,11 @@
 </template>
 <script>
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import AllergenIcon from "@/components/icon/AllergenIcon.vue";
 
 export default {
   name: 'RecipeView',
-  components: {FontAwesomeIcon},
+  components: {AllergenIcon, FontAwesomeIcon},
   props: {
     recipeId: Number,
     recipeName: String,
@@ -74,7 +75,17 @@ export default {
         ],
         timeMinute: 0,
         description: '',
-        imageData: ''
+        imageData: '',
+        ingredientInfos: [
+          {
+            recipeId: 0,
+            ingredientId: 0,
+            ingredientName: '',
+            measureUnitId: 0,
+            measureUnitName: '',
+            quantity: 0,
+          }
+        ]
       },
       minutes: 0,
       hours: 0,

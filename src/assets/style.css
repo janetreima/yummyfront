@@ -1,7 +1,4 @@
-.modal-header {
-    border-bottom: none !important;
+.custom-size {
+    height: 20px !important;
 }
 
-.modal-footer {
-    border-top: none !important;
-}

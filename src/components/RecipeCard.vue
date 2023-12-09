@@ -46,21 +46,17 @@ export default {
       return router
     },
 
-  // goToRecipe() {
-  //   router.push({path: 'recipe/' + this.recipeId})
-  // },
-
     goToRecipe() {
       router.push({
         name: 'recipeRoute',
         params: {
           recipeId: this.recipeId,
         },
-        query: {
-          isLoggedIn: this.isLoggedIn,
-        },
+        // query: {
+        //   isLoggedIn: this.isLoggedIn,
+        // },
       });
-  }
+  },
 }
 }
 </script>

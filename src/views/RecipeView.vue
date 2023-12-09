@@ -42,7 +42,7 @@
       </div>
       <div class="col col-5">
         <img src="@/assets/recipethumbnail.png">
-        <div v-if="isLoggedIn" class="d-flex justify-content-end">
+        <div v-if="isLoggedIn && userId === recipe.authorUserId" class="d-flex justify-content-end">
           <button type="button" class="btn btn-outline-dark me-2">Muuda</button>
           <button type="button" class="btn btn-outline-dark me-2">Kustuta</button>
         </div>
@@ -61,10 +61,13 @@ export default {
     recipeId: Number,
     recipeName: String,
     isLoggedIn: Boolean,
+    userId: Number,
   },
   data() {
     return {
       recipe: {
+        authorUserId: 0,
+        authorUsername: '',
         recipeName: '',
         courseId: 0,
         allergenInfos: [
@@ -89,14 +92,13 @@ export default {
       },
       minutes: 0,
       hours: 0,
-      userId: 0,
     }
   },
   methods: {
     getRecipe(recipeId) {
       this.$http.get('/recipe', {
         params: {
-          recipeId: this.recipeId
+          recipeId: this.recipeId,
         }
       })
           .then(response => {

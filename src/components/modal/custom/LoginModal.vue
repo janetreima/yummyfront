@@ -15,7 +15,7 @@
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text">Parool</span>
-          <input v-model="password" type="text" class="form-control">
+          <input v-model="password" type="password" class="form-control">
         </div>
       </div>
 
@@ -77,7 +77,7 @@ export default {
         }
       }).then(response => {
         this.loginResponse = response.data
-        sessionStorage.setItem('userId', this.loginResponse.userId)
+        sessionStorage.setItem(('userId'), this.loginResponse.userId)
         sessionStorage.setItem('roleName', this.loginResponse.roleName)
         this.$refs.modalRef.closeModal()
         this.$emit('event-login-success')

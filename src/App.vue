@@ -21,7 +21,7 @@
     </div>
   </div>
   <div id="app" class="ms-5 me-5">
-    <router-view :is-logged-in="isLoggedIn"/>
+    <router-view :is-logged-in="isLoggedIn" :user-id="userId"/>
   </div>
 </template>
 
@@ -43,8 +43,8 @@ export default {
     },
 
     handleLogin() {
-      this.userId = sessionStorage.getItem('userId');
-      this.isLoggedIn = this.userId
+      this.userId = parseInt(sessionStorage.getItem('userId'));
+      this.isLoggedIn = true;
     },
 
     openLogOutModal() {
@@ -53,7 +53,7 @@ export default {
 
     handleLogout() {
       sessionStorage.clear()
-      this.handleLogin()
+      this.isLoggedIn = false;
     },
   }
 }

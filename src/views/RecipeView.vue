@@ -9,7 +9,10 @@
           <ul class="list-group list-group-horizontal">
             <div v-for="allergenInfo in recipe.allergenInfos">
               <li class="list-group-item border-0">
+               <div class="d-flex align-items-center gap-2">
+                 <AllergenIcon :allergen-id="allergenInfo.allergenId"/>
                 {{ allergenInfo.allergenName }}
+               </div>
               </li>
             </div>
           </ul>

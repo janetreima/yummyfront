@@ -16,8 +16,10 @@ import {defineComponent} from "vue";
 import RecipeCard from "@/components/RecipeCard.vue";
 import Filter from "@/components/Filter.vue";
 import AllRecipeCards from "@/components/AllRecipeCards.vue";
+import AddRecipeView from "@/views/AddRecipeView.vue";
 
 export default defineComponent({
-  components: {AllRecipeCards, Filter, RecipeCard}
+  name: 'HomeView',
+  components: {AllRecipeCards, Filter, RecipeCard,AddRecipeView}
 })
 </script>

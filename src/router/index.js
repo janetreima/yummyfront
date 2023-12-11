@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ErrorView from "@/views/ErrorView.vue";
 import RecipeView from "@/views/RecipeView.vue";
+import AddRecipeView from "@/views/AddRecipeView.vue";
 
 const routes = [
   {
@@ -13,6 +14,11 @@ const routes = [
     path: '/error',
     name: 'errorRoute',
     component: ErrorView,
+  },
+  {
+    path: '/recipe/addrecipe',
+    name: 'addRecipeRoute',
+    component: AddRecipeView,
   },
   {
     path: '/recipe/:recipeId',

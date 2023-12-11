@@ -52,6 +52,9 @@
           <button type="button" class="btn btn-outline-dark me-2">Muuda</button>
           <button type="button" class="btn btn-outline-dark me-2">Kustuta</button>
         </div>
+        <div v-else>
+          <button @click="$router.go(-1)" type="button" class="btn btn-outline-dark me-2">Tagasi</button>
+        </div>
       </div>
     </div>
   </div>

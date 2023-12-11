@@ -9,8 +9,9 @@
     <div>
       <nav>
         <template v-if="isLoggedIn">
+          <button @click="$router.go(-1)" type="button" class="btn btn-outline-dark me-2">Tagasi</button>
           <button type="button" class="btn btn-outline-dark me-2">Minu retseptid</button>
-          <button type="button" class="btn btn-outline-dark me-2">Lisa retsept</button>
+          <button @click = "goToAddRecipe" type="button" class="btn btn-outline-dark me-2">Lisa retsept</button>
           <button @click="openLogOutModal" type="button" class="btn btn-outline-dark">Log Out</button>
         </template>
         <template v-else>
@@ -28,6 +29,7 @@
 <script>
 import LogInModal from "@/components/modal/custom/LoginModal.vue";
 import LogOutModal from "@/components/modal/custom/LogOutModal.vue";
+import router from "@/router";
 
 export default {
   components: {LogInModal, LogOutModal},
@@ -44,7 +46,9 @@ export default {
 
     handleLogin() {
       this.userId = parseInt(sessionStorage.getItem('userId'));
-      this.isLoggedIn = true;
+      if (this.userId > 0) {
+        this.isLoggedIn = true;
+      }
     },
 
     openLogOutModal() {
@@ -53,7 +57,14 @@ export default {
 
     handleLogout() {
       sessionStorage.clear()
-      this.isLoggedIn = false;
+      this.handleLogin()
+    },
+
+    goToAddRecipe() {
+
+      router.push({
+        name: 'addRecipeRoute'
+      });
     },
   }
 }

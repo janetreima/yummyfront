@@ -4,11 +4,11 @@
     <div class="card-body">
       <div class="d-flex">
         <h5 class="card-title">
-          {{ recipeName }}
+          {{ recipe.recipeName }}
         </h5>
       </div>
       <div class="d-flex justify-content-end">
-        <button class="btn btn-outline-dark" type="button" @click="goToRecipe">Vaata retsepti</button>
+        <button class="btn btn-outline-dark" type="button" @click="navigateToRecipe(recipe.recipeId)">Vaata retsepti</button>
       </div>
     </div>
   </div>
@@ -22,39 +22,19 @@ export default {
   name: 'RecipeCard',
   components: {RecipeImage},
   props: {
-    recipeName: String,
-    recipeId: 0,
-    isLoggedIn: Boolean,
+    recipe: {}
   },
-  data() {
-    return {
-      recipe:
-          {
-            recipeId: 0,
-            authorUserId: 0,
-            authorUsername: '',
-            imageData: '',
-            recipeName: '',
-            timeMinute: 0
-          },
-      text: 'Vaata',
-    }
-  },
-
   methods: {
     router() {
       return router
     },
 
-    goToRecipe() {
+    navigateToRecipe(recipeId) {
       router.push({
         name: 'recipeRoute',
-        params: {
-          recipeId: this.recipeId,
+        query:{
+          recipeId: recipeId
         },
-        // query: {
-        //   isLoggedIn: this.isLoggedIn,
-        // },
       });
   },
 }

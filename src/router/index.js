@@ -21,13 +21,9 @@ const routes = [
     component: AddRecipeView,
   },
   {
-    path: '/recipe/:recipeId',
+    path: '/recipe',
     name: 'recipeRoute',
-    component: RecipeView,
-    props: (route) => ({
-      recipeId: parseInt(route.params.recipeId),
-      isLoggedIn: route.query.isLoggedIn === 'true'
-  }),
+    component: RecipeView
   }
 ]
 

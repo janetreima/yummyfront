@@ -2,10 +2,10 @@
   <div class="container-fluid justify-content-center">
     <div class="row">
       <div class="col col-2">
-        <Filter/>
+        <Filter @event-emit-recipes-filter-info="handleRecipeFiltering"/>
       </div>
       <div class="col col-10">
-        <AllRecipeCards/>
+        <AllRecipeCards ref="allRecipeCardsRef" :recipes="recipes" :key="recipes"/>
       </div>
     </div>
   </div>
@@ -20,6 +20,68 @@ import AddRecipeView from "@/views/AddRecipeView.vue";
 
 export default defineComponent({
   name: 'HomeView',
-  components: {AllRecipeCards, Filter, RecipeCard,AddRecipeView}
+  components: {AllRecipeCards, Filter, RecipeCard, AddRecipeView},
+  data() {
+    return {
+      recipes: [
+        {
+          recipeId: 0,
+          authorUserId: 0,
+          authorUsername: '',
+          imageData: '',
+          recipeName: '',
+          timeMinute: 0
+        }
+      ],
+      filteredRecipesRequest:
+          {
+            allergenInfos: [
+              {
+                allergenId: 0,
+                allergenName: '',
+                isAvailable: false
+              }
+            ],
+            courseInfos: [
+              {
+                courseId: 0,
+                courseName: '',
+                isAvailable: false
+              }
+            ]
+          },
+      errorResponse: {
+        message: '',
+        errorCode: 0
+      }
+    }
+  },
+  methods: {
+    getAllRecipes() {
+      this.$http.get('/recipes'
+      ).then(response => {
+        this.recipes = response.data
+      }).catch(error => {
+        this.errorResponse = error.response.data;
+      })
+    },
+
+handleRecipeFiltering(filterInfo) {
+      this.filteredRecipesRequest = filterInfo
+      this.findRecipesByFilter();
+    },
+
+    findRecipesByFilter() {
+      this.$http.post('recipes/filtered', this.filteredRecipesRequest
+      ).then(response => {
+        this.recipes = response.data
+      }).catch(error => {
+        this.errorResponse = error.response.data;
+      })
+    },
+  },
+  mounted() {
+    this.getAllRecipes()
+  }
 })
 </script>

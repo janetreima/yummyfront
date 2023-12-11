@@ -62,18 +62,14 @@
 <script>
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import AllergenIcon from "@/components/icon/AllergenIcon.vue";
+import {useRoute} from "vue-router";
 
 export default {
   name: 'RecipeView',
   components: {AllergenIcon, FontAwesomeIcon},
-  props: {
-    recipeId: Number,
-    recipeName: String,
-    isLoggedIn: Boolean,
-    userId: Number,
-  },
   data() {
     return {
+      recipeId: Number(useRoute().query.recipeId),
       recipe: {
         authorUserId: 0,
         authorUsername: '',

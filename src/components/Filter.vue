@@ -1,77 +1,62 @@
 <template>
-  <h4>
-    Filtreeri
-  </h4>
-  <h6 class="mt-3">
-    Käik
-  </h6>
-  <div class="mt-2">
-  <div v-for="course in courses" :key="course.id"  class="form-check">
-    <input class="form-check-input" type="checkbox" value="">
-    <label class="form-check-label" for="flexCheckDefault">
-      {{ course.name }}
-    </label>
-  </div>
-  </div>
-  <h6 class="mt-3">
-    Allergeenid
-  </h6>
-  <div class="mt-2">
-    <div v-for="allergen in allergens" :key="allergen.allergenId"  class="form-check">
-      <input class="form-check-input" type="checkbox" value="">
-      <label class="form-check-label" for="flexCheckDefault">
-        {{ allergen.allergenName }}
-      </label>
+  <div>
+    <h4>
+      Filtreeri
+    </h4>
+    <h6 class="mt-3">
+      Käik
+    </h6>
+    <div class="mt-2">
+      <CoursesFilterCheckbox ref="coursesFilterCheckboxRef"/>
     </div>
-  </div>
-  <div class="mt-3">
-    <button type="button" class="btn btn-outline-dark">Filtreeri</button>
+    <h6 class="mt-3">
+      Allergeenid
+    </h6>
+    <div class="mt-2">
+      <AllergensFilterCheckbox ref="allergenFilterCheckboxRef"/>
+    </div>
+    <div class="mt-3">
+      <button @click="emitFilterInfo" type="submit" class="btn btn-outline-dark">Filtreeri</button>
+    </div>
   </div>
 </template>
 
 <script>
+import CoursesFilterCheckbox from "@/components/CoursesFilterCheckbox.vue";
+import AllergensFilterCheckbox from "@/components/AllergensFilterCheckbox.vue";
+
 export default {
   name: 'Filter',
+  components: {AllergensFilterCheckbox, CoursesFilterCheckbox},
   data() {
     return {
-      allergens: [
-        {
-          allergenId: 0,
-          allergenName: '',
-          isAvailable: false
-        }
-      ],
-      courses: [
-        {
-          id: 0,
-          name: '',
-        }
-      ]
+      filteredRecipesRequest:
+          {
+            allergenInfos: [
+              {
+                allergenId: 0,
+                allergenName: '',
+                isAvailable: false
+              }
+            ],
+            courseInfos: [
+              {
+                courseId: 0,
+                courseName: '',
+                isAvailable: false
+              }
+            ]
+          },
     }
   },
   methods: {
-    getAllAllergens() {
-      this.$http.get('/recipe/allergens')
-          .then(response => {
-            this.allergens = response.data;
-          })
-          .catch(error => {
-            this.errorResponse = error.response.data;
-          });
-    },
-    getAllCourses() {
-      this.$http.get('/recipe/courses')
-          .then(response => {
-            this.courses = response.data;
-          })
-          .catch(error => {
-            this.errorResponse = error.response.data;
-          });
+    emitFilterInfo() {
+      this.filteredRecipesRequest.allergenInfos = this.$refs.allergenFilterCheckboxRef.allergens;
+      this.filteredRecipesRequest.courseInfos = this.$refs.coursesFilterCheckboxRef.courses;
+      this.$emit('emit-recipes-filter-info', this.filteredRecipesRequest)
     },
   },
   mounted() {
-    this.getAllAllergens()
-    this.getAllCourses()
   }
 }
 </script>

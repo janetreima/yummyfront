@@ -26,7 +26,6 @@ export default {
     executeLogout() {
       this.$emit('event-execute-logout')
       this.$refs.modalRef.closeModal()
-      router.push({name: 'homeRoute'})
     },
     closeLogoutModal() {
       this.$refs.modalRef.closeModal()

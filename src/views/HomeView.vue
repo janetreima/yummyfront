@@ -53,7 +53,9 @@ export default defineComponent({
       errorResponse: {
         message: '',
         errorCode: 0
-      }
+      },
+      userId: 0,
+      isLoggedIn: Boolean,
     }
   },
   methods: {
@@ -66,8 +68,9 @@ export default defineComponent({
       })
     },
 
-handleRecipeFiltering(filterInfo) {
-      this.filteredRecipesRequest = filterInfo
+    handleRecipeFiltering(filteredRecipesRequest) {
+      console.log("Received filtered recipes request:", filteredRecipesRequest);
+      this.filteredRecipesRequest = filteredRecipesRequest
       this.findRecipesByFilter();
     },
 
@@ -82,6 +85,7 @@ handleRecipeFiltering(filterInfo) {
   },
   mounted() {
     this.getAllRecipes()
+
   }
 })
 </script>

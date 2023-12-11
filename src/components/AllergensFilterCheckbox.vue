@@ -1,6 +1,6 @@
 <template>
   <div v-for="allergen in allergens" :key="allergen.allergenId" class="form-check">
-    <input v-model="allergen.isAvailable" class="form-check-input" type="checkbox" value="">
+    <input v-model="allergen.isAvailable" class="form-check-input" type="checkbox" :id="'allergenId' + allergen.allergenId">
     <label class="form-check-label" for="flexCheckDefault">
       {{ allergen.allergenName }}
     </label>

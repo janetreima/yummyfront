@@ -97,6 +97,8 @@ export default {
       },
       minutes: 0,
       hours: 0,
+      userId: Number(sessionStorage.getItem('userId')),
+      isLoggedIn: false,
     }
   },
   methods: {
@@ -120,10 +122,16 @@ export default {
       this.hours = Math.floor(inputMinutes / 60);
       this.minutes = inputMinutes % 60;
     },
+    checkIfLoggedIn() {
+      if (this.userId > 0) {
+        this.isLoggedIn = true;
+      }
+    },
   },
 
   mounted() {
     this.getRecipe();
+    this.checkIfLoggedIn()
   }
 }
 </script>

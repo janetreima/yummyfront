@@ -11,7 +11,7 @@
         <template v-if="isLoggedIn">
           <button @click="$router.go(-1)" type="button" class="btn btn-outline-dark me-2">Tagasi</button>
           <button type="button" class="btn btn-outline-dark me-2">Minu retseptid</button>
-          <button @click = "goToAddRecipe" type="button" class="btn btn-outline-dark me-2">Lisa retsept</button>
+          <button @click="goToAddRecipe" type="button" class="btn btn-outline-dark me-2">Lisa retsept</button>
           <button @click="openLogOutModal" type="button" class="btn btn-outline-dark">Log Out</button>
         </template>
         <template v-else>
@@ -22,7 +22,7 @@
     </div>
   </div>
   <div id="app" class="ms-5 me-5">
-    <router-view :is-logged-in="isLoggedIn" :user-id="userId"/>
+    <router-view/>
   </div>
 </template>
 
@@ -56,12 +56,12 @@ export default {
     },
 
     handleLogout() {
-      sessionStorage.clear()
-      this.handleLogin()
+      sessionStorage.clear();
+      const userId = sessionStorage.getItem('userId')
+      this.isLoggedIn = userId !== null
     },
 
     goToAddRecipe() {
-
       router.push({
         name: 'addRecipeRoute'
       });

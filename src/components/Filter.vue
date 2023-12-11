@@ -53,7 +53,9 @@ export default {
     emitFilterInfo() {
       this.filteredRecipesRequest.allergenInfos = this.$refs.allergenFilterCheckboxRef.allergens;
       this.filteredRecipesRequest.courseInfos = this.$refs.coursesFilterCheckboxRef.courses;
+
       this.$emit('emit-recipes-filter-info', this.filteredRecipesRequest)
+      console.log("filter info emitted from Filter.Vue")
     },
   },
   mounted() {

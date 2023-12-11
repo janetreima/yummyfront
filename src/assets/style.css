@@ -2,3 +2,7 @@
     height: 20px !important;
 }
 
+.hover-cursor {
+    cursor: pointer;
+}
+

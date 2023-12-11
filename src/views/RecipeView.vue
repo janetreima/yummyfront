@@ -2,7 +2,10 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col col-7">
-        <div class="d-flex align-items-center gap-3">
+        <div @click="$router.go(-1)" class="hover-cursor">
+        <font-awesome-icon  :icon="['fas', 'chevron-left']" size="lg" />
+        </div>
+        <div class="d-flex align-items-center gap-3 mt-3">
           <h1>
             {{ recipe.recipeName }}
           </h1>

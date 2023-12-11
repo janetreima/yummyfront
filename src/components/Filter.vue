@@ -2,19 +2,21 @@
   <h4>
     Filtreeri
   </h4>
-  <h6>
+  <h6 class="mt-3">
     Käik
   </h6>
+  <div class="mt-2">
   <div v-for="course in courses" :key="course.id"  class="form-check">
     <input class="form-check-input" type="checkbox" value="">
     <label class="form-check-label" for="flexCheckDefault">
       {{ course.name }}
     </label>
   </div>
-  <h6>
+  </div>
+  <h6 class="mt-3">
     Allergeenid
   </h6>
-  <div class="mt-3">
+  <div class="mt-2">
     <div v-for="allergen in allergens" :key="allergen.allergenId"  class="form-check">
       <input class="form-check-input" type="checkbox" value="">
       <label class="form-check-label" for="flexCheckDefault">

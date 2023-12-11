@@ -4,13 +4,15 @@
 
   <div class="d-flex justify-content-between ms-5 me-5 mt-4 mb-5">
     <div class="">
-      <h1>yum.my</h1>
+      <router-link to="/" class="site-heading">
+        <h1>yum.my</h1>
+      </router-link>
     </div>
     <div>
       <nav>
         <template v-if="isLoggedIn">
           <button @click="$router.go(-1)" type="button" class="btn btn-outline-dark me-2">Tagasi</button>
-          <button type="button" class="btn btn-outline-dark me-2">Minu retseptid</button>
+          <button @click="$router.push('/myrecipes')" type="button" class="btn btn-outline-dark me-2">Minu retseptid</button>
           <button @click="goToAddRecipe" type="button" class="btn btn-outline-dark me-2">Lisa retsept</button>
           <button @click="openLogOutModal" type="button" class="btn btn-outline-dark">Log Out</button>
         </template>
@@ -59,6 +61,7 @@ export default {
       sessionStorage.clear();
       const userId = sessionStorage.getItem('userId')
       this.isLoggedIn = userId !== null
+      router.push('/')
     },
 
     goToAddRecipe() {

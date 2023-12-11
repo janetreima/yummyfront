@@ -2,10 +2,21 @@
   <div class="card border-dark m-3" style="width: 14rem;">
     <RecipeImage :image-data-base64="recipe.imageData"/>
     <div class="card-body">
-      <div class="d-flex">
+      <div class="d-flex flex-column">
         <h5 class="card-title">
           {{ recipe.recipeName }}
         </h5>
+        <div class="d-flex gap-2 align-content-center">
+          <font-awesome-icon :icon="['far', 'clock']" size="sm"/>
+          <div class="d-flex gap-1">
+            <h6 id="time-s" v-if="hours > 0">
+              {{ hours }} h
+            </h6>
+            <h6 id="time-s" v-if="minutes > 0">
+              {{ minutes }} min
+            </h6>
+          </div>
+        </div>
       </div>
       <div class="d-flex justify-content-end">
         <button class="btn btn-outline-dark" type="button" @click="navigateToRecipe(recipe.recipeId)">Vaata retsepti</button>
@@ -24,6 +35,12 @@ export default {
   props: {
     recipe: {}
   },
+  data() {
+    return {
+      hours: 0,
+      minutes: 0
+    }
+  },
   methods: {
     router() {
       return router
@@ -37,6 +54,14 @@ export default {
         },
       });
   },
-}
+    convertMinutesToHoursAndMinutes() {
+      const inputMinutes = this.recipe.timeMinute
+      this.hours = Math.floor(inputMinutes / 60);
+      this.minutes = inputMinutes % 60;
+    },
+},
+  mounted() {
+    this.convertMinutesToHoursAndMinutes()
+  },
 }
 </script>

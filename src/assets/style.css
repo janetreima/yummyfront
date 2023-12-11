@@ -6,3 +6,16 @@
     cursor: pointer;
 }
 
+.site-heading {
+    color: #000000;
+    text-decoration: none;
+}
+
+.site-heading:hover {
+    color: maroon;
+}
+
+#time-s {
+    font-size: 10pt;
+}
+

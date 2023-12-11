@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import ErrorView from "@/views/ErrorView.vue";
 import RecipeView from "@/views/RecipeView.vue";
 import AddRecipeView from "@/views/AddRecipeView.vue";
+import UserRecipesView from "@/views/UserRecipesView.vue";
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/recipe',
     name: 'recipeRoute',
     component: RecipeView
+  },
+  {
+    path: '/myrecipes',
+    name: 'userRecipesRoute',
+    component: UserRecipesView
   }
 ]
 

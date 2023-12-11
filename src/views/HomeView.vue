@@ -18,7 +18,7 @@ import Filter from "@/components/Filter.vue";
 import AllRecipeCards from "@/components/AllRecipeCards.vue";
 import AddRecipeView from "@/views/AddRecipeView.vue";
 
-export default defineComponent({
+export default {
   name: 'HomeView',
   components: {AllRecipeCards, Filter, RecipeCard, AddRecipeView},
   data() {
@@ -87,5 +87,5 @@ export default defineComponent({
     this.getAllRecipes()
 
   }
-})
+}
 </script>

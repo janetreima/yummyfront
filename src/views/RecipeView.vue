@@ -124,9 +124,12 @@ export default {
       this.hours = Math.floor(inputMinutes / 60);
       this.minutes = inputMinutes % 60;
     },
+
+
   },
 
   mounted() {
+
     this.getRecipe();
   }
 }

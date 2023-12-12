@@ -1,5 +1,5 @@
 <template>
-  <LogInModal ref="loginModalRef" @event-login-success="handleLogin"/>
+  <LogInModal ref="loginModalRef" @event-login-success="checkIfIsLoggedIn"/>
   <LogOutModal ref="logOutModal" @event-execute-logout="handleLogout"/>
 
   <div class="d-flex justify-content-between ms-5 me-5 mt-4 mb-5">
@@ -22,7 +22,7 @@
     </div>
   </div>
   <div id="app" class="ms-5 me-5">
-    <router-view :is-logged-in="isLoggedIn" :user-id="userId"/>
+    <router-view/>
   </div>
 </template>
 
@@ -44,7 +44,7 @@ export default {
       this.$refs.loginModalRef.$refs.modalRef.openModal()
     },
 
-    handleLogin() {
+    checkIfIsLoggedIn() {
       this.userId = parseInt(sessionStorage.getItem('userId'));
       if (this.userId > 0) {
         this.isLoggedIn = true;
@@ -57,7 +57,7 @@ export default {
 
     handleLogout() {
       sessionStorage.clear()
-      this.handleLogin()
+      this.checkIfIsLoggedIn()
     },
 
     goToAddRecipe() {

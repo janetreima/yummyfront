@@ -2,7 +2,7 @@
   <div class="container-fluid justify-content-center">
     <div class="row">
       <div class="col col-2">
-        <Filter @event-emit-recipes-filter-info="handleRecipeFiltering"/>
+        <Filter @event-recipes-filter-info="handleRecipeFiltering"/>
       </div>
       <div class="col col-10">
         <AllRecipeCards ref="allRecipeCardsRef" :recipes="recipes" :key="recipes"/>
@@ -71,12 +71,14 @@ export default {
     handleRecipeFiltering(filteredRecipesRequest) {
       console.log("Received filtered recipes request:", filteredRecipesRequest);
       this.filteredRecipesRequest = filteredRecipesRequest
+      console.log("set info to data block")
       this.findRecipesByFilter();
     },
 
     findRecipesByFilter() {
       this.$http.post('recipes/filtered', this.filteredRecipesRequest
       ).then(response => {
+        console.log("response datasse backendist info:", response)
         this.recipes = response.data
       }).catch(error => {
         this.errorResponse = error.response.data;

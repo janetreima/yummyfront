@@ -143,10 +143,10 @@
           this.$refs.logOutModal.$refs.modalRef.openModal()
         },
         handlePage() {
-          const userIdd = sessionStorage.getItem('userId')
-          if(userIdd>0){
+          const userId = sessionStorage.getItem('userId')
+          if(userId > 0){
             this.isLoggedIn = true;
-            return userId;
+            this.userId = userId
           }
 
         },

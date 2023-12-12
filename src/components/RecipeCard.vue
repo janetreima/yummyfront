@@ -6,6 +6,9 @@
         <h5 class="card-title">
           {{ recipe.recipeName }}
         </h5>
+        <h6 id="time-s">
+          autor: {{recipe.authorUsername}}
+        </h6>
         <div class="d-flex gap-2 align-content-center">
           <font-awesome-icon :icon="['far', 'clock']" size="sm"/>
           <div class="d-flex gap-1">

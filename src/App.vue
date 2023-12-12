@@ -1,6 +1,7 @@
 <template>
   <LogInModal ref="loginModalRef" @event-login-success="handleLogin"/>
   <LogOutModal ref="logOutModal" @event-execute-logout="handleLogout"/>
+  <RegistrationModal ref="registrationModalRef"/>
 
   <div class="d-flex justify-content-between ms-5 me-5 mt-4 mb-5">
     <div class="">
@@ -18,7 +19,7 @@
         </template>
         <template v-else>
           <button @click="openLoginModal" type="button" class="btn btn-outline-dark me-2">Logi Sisse</button>
-          <button type="button" class="btn btn-outline-dark">Registreeri</button>
+          <button @click="openRegistrationModal" type="button" class="btn btn-outline-dark">Registreeri</button>
         </template>
       </nav>
     </div>
@@ -31,10 +32,11 @@
 <script>
 import LogInModal from "@/components/modal/custom/LoginModal.vue";
 import LogOutModal from "@/components/modal/custom/LogOutModal.vue";
+import RegistrationModal from "@/components/RegistrationModal.vue";
 import router from "@/router";
 
 export default {
-  components: {LogInModal, LogOutModal},
+  components: {LogInModal, LogOutModal, RegistrationModal},
   data() {
     return {
       isLoggedIn: false,
@@ -62,6 +64,10 @@ export default {
       const userId = sessionStorage.getItem('userId')
       this.isLoggedIn = userId !== null
       router.push('/')
+    },
+
+    openRegistrationModal() {
+      this.$refs.registrationModalRef.$refs.modalRef.openModal()
     },
 
     goToAddRecipe() {

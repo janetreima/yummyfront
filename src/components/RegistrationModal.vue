@@ -29,7 +29,7 @@
 
 <script>
 
-import Modal from "@/components/Modal.vue";
+import Modal from "@/components/modal/Modal.vue";
 import ErrorAlert from "@/components/ErrorAlert.vue"
 export default {
   name: 'RegistrationModal',

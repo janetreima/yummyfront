@@ -31,15 +31,6 @@
         </div>
         <div>
           <h5 class="mt-3">
-            Koostisosad
-          </h5>
-          <ul class="list-group list-group-flush w-50">
-
-            <div>
-              <button type="button" class="btn btn-link">Lisa rida</button>
-            </div>
-          </ul>
-          <h5 class="mt-3">
             Valmistamine
           </h5>
           <p class="w-75">
@@ -47,10 +38,12 @@
           </p>
         </div>
         <h5 class="mt-3">
-          Allergens
+          Allergeenid
         </h5>
         <AllergensChoice/>
-        <br>
+        <h5 class="mt-3">
+          Pilt
+        </h5>
         <ImageInput @event-base-64="setImageToRecipe"/>
       </div>
       <div class="col col-5">
@@ -61,7 +54,9 @@
   </div>
 
   <div>
-    <button @click="addRecipe" type="button" class="btn btn-outline-success m-3">Salvesta</button>
+    <button @click="addRecipeMoveToAddingIngredients" type="button" class="btn btn-outline-success m-3">Edasi koostisosi
+      lisama
+    </button>
   </div>
 </template>
 <script>
@@ -72,6 +67,7 @@ import ErrorAlert from "@/components/alert/ErrorAlert.vue";
 import CourseDropdown from "@/components/CourseDropdown.vue";
 import AllergensChoice from "@/components/AllergensChoise.vue";
 import ImageInput from "@/components/image/ImageInput.vue";
+import router from "@/router";
 
 
 export default {
@@ -117,14 +113,9 @@ export default {
 
   },
   methods: {
-    addRecipe() {
+    addRecipeMoveToAddingIngredients() {
       this.saveRecipe();
-
-      // if (this.allRequiredDataFilled()){
-      //   this.saveRecipe()
-      // } else {
-      //   this.requiredFieldsNotFilled()
-      // }
+      router.push('/recipe/addrecipe/ingredients')
     },
     requiredFieldsNotFilled() {
       this.errorMessage = 'Palun taida koik info'
@@ -147,10 +138,10 @@ export default {
           userId: this.userId
         }
       }).then(response => {
-            console.log(response)
-            this.successMessage = 'koik OK!!! Retsept' + this.recipeDetailedDto.recipeName + 'lisatud!'
-            setTimeout(this.resetSuccessMessage, 2000)
-          }).catch(error => {
+        console.log(response)
+        this.successMessage = 'koik OK!!! Retsept' + this.recipeDetailedDto.recipeName + 'lisatud!'
+        setTimeout(this.resetSuccessMessage, 2000)
+      }).catch(error => {
         this.errorMessage = 'Valesti!'
         setTimeout(this.resetSuccessMessage, 2000)
       })

@@ -19,3 +19,11 @@
     font-size: 10pt;
 }
 
+.wider-input {
+    width: 60% !important;
+}
+
+.narrow-input {
+    width: 20% !important;
+}
+

@@ -47,7 +47,7 @@
         </p>
       </div>
       <div class="col col-5">
-        <img src="@/assets/recipethumbnail.png">
+        <RecipeImage :image-data-base64="recipe.imageData"/>
         <div v-if="isLoggedIn && userId === recipe.authorUserId" class="d-flex justify-content-end">
           <button type="button" class="btn btn-outline-dark me-2">Muuda</button>
           <button type="button" class="btn btn-outline-dark me-2">Kustuta</button>
@@ -63,10 +63,11 @@
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import AllergenIcon from "@/components/icon/AllergenIcon.vue";
 import {useRoute} from "vue-router";
+import RecipeImage from "@/components/RecipeCardImage.vue";
 
 export default {
   name: 'RecipeView',
-  components: {AllergenIcon, FontAwesomeIcon},
+  components: {RecipeImage, AllergenIcon, FontAwesomeIcon},
   data() {
     return {
       recipeId: Number(useRoute().query.recipeId),

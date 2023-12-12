@@ -3,7 +3,7 @@
   <div>
     <select v-model="selectedCourseId" @change="emitCourseId">
     <option selected disabled value="0">Koik</option>
-    <option v-for="course in courses" :key="course.id" :value="course.id" >{{course.name}}</option>
+    <option v-for="course in courses" :key="course.courseId" :value="course.courseId" >{{course.courseName}}</option>
     </select>
   </div>
 </template>
@@ -15,8 +15,9 @@ export default {
     return {
       selectedCourseId: 0,
       courses: [{
-        id: 0,
-        name: String,
+        courseId: 0,
+        courseName: String,
+        isAvailable: true,
       }],
     }
   },

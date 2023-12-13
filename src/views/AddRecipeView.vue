@@ -70,7 +70,7 @@ import AllergenIcon from "@/components/icon/AllergenIcon.vue";
 import SuccessAlert from "@/components/alert/SuccessAlert.vue";
 import ErrorAlert from "@/components/alert/ErrorAlert.vue";
 import CourseDropdown from "@/components/CourseDropdown.vue";
-import AllergensChoice from "@/components/AllergensChoise.vue";
+import AllergensChoice from "@/components/AllergensChoiseCheckbox.vue";
 import ImageInput from "@/components/image/ImageInput.vue";
 
 

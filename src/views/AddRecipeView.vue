@@ -6,45 +6,56 @@
     </div>
     <div class="row">
       <div class="col col-7">
-        <div class="d-flex align-items-center gap-3">
-          <h1>
-            <div class="input-group input-group-lg">
-              <span class="input-group-text" id="inputGroup-sizing-lg">Retsepti nimi</span>
-              <input v-model="recipeDetailedDto.recipeName" type="text" class="form-control"
-                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-            </div>
-          </h1>
-        </div>
+
+
+          <h5 class="mt-3">
+            Retsepti nimi
+          </h5>
+          <input v-model="recipeDetailedDto.recipeName" type="text" class="form-control w-50"
+                 aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+
+
+
+        <h5 class="mt-3">
+          Käik
+        </h5>
         <div>
           <CourseDropdown @select-course-event="setCourseId"/>
         </div>
-        <br>
-        <div class="d-flex gap-2">
-          <font-awesome-icon :icon="['far', 'clock']" size="lg"/>
-          <div class="d-flex gap-1">
-            <div class="input-group input-group-sm mb-3">
-              <span class="input-group-text" id="inputGroup-sizing-sm">Aeg (minut)</span>
-              <input v-model="recipeDetailedDto.timeMinute" type="text" class="form-control"
-                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-            </div>
+        <h5 class="mt-3">
+          Valmistamise aeg
+        </h5>
+
+        <div class="d-flex align-items-center gap-2">
+          <font-awesome-icon :icon="['far', 'clock']" size="xl"/>
+          <div class="d-flex gap-2">
+
+            <input v-model="inputHours" @change="convertTimeToMinutes" type="number" class="form-control narrow-input"
+                   id="inputHours">
+            <label for="inputPassword6" class="col-form-label">h</label>
+
+
+            <input v-model="inputMinutes" @change="convertTimeToMinutes" type="number" class="form-control narrow-input"
+                   id="inputHours">
+            <label for="inputPassword6" class="col-form-label">min</label>
+
           </div>
         </div>
         <div>
           <h5 class="mt-3">
-            Valmistamine
+            Valmistamise juhised
           </h5>
           <p class="w-75">
             <input v-model="recipeDetailedDto.description" type="text" style="width: 600px; height: 200px;">
           </p>
         </div>
         <h5 class="mt-3">
-          Allergeenid
-        </h5>
-        <AllergensChoice/>
-        <h5 class="mt-3">
           Pilt
         </h5>
         <ImageInput @event-base-64="setImageToRecipe"/>
+
+
+
       </div>
       <div class="col col-5">
         <img src="@/assets/recipethumbnail.png">
@@ -80,6 +91,8 @@ export default {
       errorMessage: '',
       isLoggedIn: false,
       userId: Number(sessionStorage.getItem('userId')),
+      inputHours: 0,
+      inputMinutes: 0,
       recipeDetailedDto: {
         authorUserId: 0,
         authorUsername: '',
@@ -135,6 +148,12 @@ export default {
 
     setCourseId(selectedCourseId) {
       this.recipeDetailedDto.courseId = selectedCourseId;
+    },
+
+    convertTimeToMinutes() {
+      const hoursToMinutes = this.inputHours * 60;
+      const totalMinutes = hoursToMinutes + this.inputMinutes;
+      this.recipeDetailedDto.timeMinute = totalMinutes;
     },
 
     saveRecipe() {

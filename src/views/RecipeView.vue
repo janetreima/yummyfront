@@ -1,9 +1,10 @@
 <template>
+  <DeleteRecipeModal @delete-recipe-event="deleteRecipe" ref="deleteRecipeModal"/>
   <div class="container-fluid">
     <div class="row">
       <div class="col col-7">
         <div @click="$router.push('/')" class="hover-cursor">
-        <font-awesome-icon  :icon="['fas', 'chevron-left']" size="lg" />
+          <font-awesome-icon :icon="['fas', 'chevron-left']" size="lg"/>
         </div>
         <div class="d-flex align-items-center gap-3 mt-3">
           <h1>
@@ -12,10 +13,10 @@
           <ul class="list-group list-group-horizontal">
             <div v-for="allergenInfo in recipe.allergenInfos">
               <li class="list-group-item border-0">
-               <div class="d-flex align-items-center gap-2">
-                 <AllergenIcon :allergen-id="allergenInfo.allergenId"/>
-                {{ allergenInfo.allergenName }}
-               </div>
+                <div class="d-flex align-items-center gap-2">
+                  <AllergenIcon :allergen-id="allergenInfo.allergenId"/>
+                  {{ allergenInfo.allergenName }}
+                </div>
               </li>
             </div>
           </ul>
@@ -50,7 +51,7 @@
         <RecipeImage id="img-size-orig" :image-data-base64="recipe.imageData"/>
         <div v-if="isLoggedIn && userId === recipe.authorUserId" class="d-flex justify-content-end">
           <button type="button" class="btn btn-outline-dark me-2">Muuda</button>
-          <button type="button" class="btn btn-outline-dark me-2">Kustuta</button>
+          <button @click="openDeleteRecipeModal" type="button" class="btn btn-outline-dark me-2">Kustuta</button>
         </div>
         <div v-else>
           <button @click="$router.go(-1)" type="button" class="btn btn-outline-dark me-2">Tagasi</button>
@@ -64,10 +65,13 @@ import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import AllergenIcon from "@/components/icon/AllergenIcon.vue";
 import {useRoute} from "vue-router";
 import RecipeImage from "@/components/RecipeCardImage.vue";
+import LogOutModal from "@/components/modal/custom/LogOutModal.vue";
+import DeleteRecipeModal from "@/components/modal/custom/DeleteRecipeModal.vue";
+import router from "@/router";
 
 export default {
   name: 'RecipeView',
-  components: {RecipeImage, AllergenIcon, FontAwesomeIcon},
+  components: {DeleteRecipeModal, LogOutModal, RecipeImage, AllergenIcon, FontAwesomeIcon},
   data() {
     return {
       recipeId: Number(useRoute().query.recipeId),
@@ -116,6 +120,25 @@ export default {
           .catch(error => {
             this.errorResponse = error.response.data;
           });
+    },
+    openDeleteRecipeModal() {
+      this.$refs.deleteRecipeModal.$refs.modalRef.openModal()
+    },
+
+    deleteRecipe: function () {
+      this.$http.delete('/recipe', {
+        params: {
+          recipeId: this.recipeId,
+        }
+      }).then(
+          this.redirectToHomeView
+      )
+    },
+
+    redirectToHomeView: function () {
+      router.push({
+        name: 'homeRoute'
+      })
     },
 
     convertMinutesToHoursAndMinutes() {

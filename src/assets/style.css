@@ -20,10 +20,14 @@
 }
 
 .wider-input {
-    width: 60% !important;
+    width: 40% !important;
 }
 
 .narrow-input {
     width: 20% !important;
+}
+
+.input-border-black {
+    border-color: black !important;
 }
 

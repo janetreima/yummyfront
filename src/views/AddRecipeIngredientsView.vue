@@ -1,31 +1,36 @@
 <template>
   <div class="container-fluid">
-    <ul class="list-group list-group-horizontal">
-      <ul class="list-group list-group-flush w-50">
-        <li class="list-group-item">{{ ingredientInfo.quantity }}
-          {{ ingredientInfo.measureUnitName }} {{ ingredientInfo.ingredientName }}
-        </li>
-      </ul>
-    </ul>
+    <div>
+        <ul class="list-group list-group-flush w-50">
+          <li v-for="recipeIngredient in recipeIngredients" :key="recipeIngredient.ingredientId"
+              class="list-group-item">{{ recipeIngredient.quantity }}
+            {{ recipeIngredient.measureUnitName }} {{ recipeIngredient.ingredientName }}
+          </li>
+        </ul>
+    </div>
     <h5 class="mt-3">
       Lisa koostisosad
     </h5>
     <div class="input-group w-50">
-      <input type="text" class="form-control wider-input" aria-label="Text input">
-      <select class="form-select narrow-input" id="inputGroupSelect04" aria-label="Example select with button addon">
+      <input v-model="ingredientInfo.ingredientName" type="text" class="form-control wider-input input-border-black"
+             placeholder="Koostisosa">
+      <input v-model="ingredientInfo.quantity" type="number" class="form-control narrow-input input-border-black"
+             placeholder="Kogus">
+      <select v-model="ingredientInfo.measureUnitId" class="form-select narrow-input input-border-black" id="inputGroupSelect04">
         <option selected disabled>ühik</option>
-        <option value="1">kg</option>
-        <option value="2">g</option>
-        <option value="3">l</option>
-        <option value="3">ml</option>
+        <option v-for="measureUnit in measureUnits" :key="measureUnit.id" :value="measureUnit.id" >{{measureUnit.name}}</option>
       </select>
-      <button class="btn btn-outline-secondary narrow-input" type="button">Lisa</button>
+      <button @click="addRecipeIngredient" class="btn btn-outline-dark narrow-input" type="button">+ Lisa</button>
     </div>
+    <button @click="navigateToAddedRecipe(recipeId)" type="button" class="btn btn-outline-success m-3">Valmis
+    </button>
   </div>
 </template>
 
 <script>
 import AllergenIcon from "@/components/icon/AllergenIcon.vue";
+import {useRoute} from "vue-router";
+import router from "@/router";
 
 export default {
   name: 'AddRecipeIngredientsView',
@@ -33,6 +38,7 @@ export default {
   data() {
     return {
       userId: Number(sessionStorage.getItem('userId')),
+      recipeId: Number(useRoute().query.recipeId),
       isLoggedIn: false,
       ingredientInfo:
           {
@@ -51,36 +57,73 @@ export default {
               quantity: 0
             }
           ],
+      measureUnits: [
+        {
+          id: 0,
+          name: '',
+        }
+      ]
     }
   },
-methods: {
+  methods: {
 
-  getRecipeIngredients(recipeId) {
-    this.$http.get('/recipe/ingredients', {
-      params: {
-        recipeId: this.recipeId,
+    addRecipeIngredient() {
+      this.$http.post('/recipe/ingredient', this.ingredientInfo, {
+        params: {
+          recipeId: this.recipeId,
+        }
+      })
+          .then(response => {
+            this.getRecipeIngredients()
+          })
+          .catch(error => {
+            this.errorResponse = error.response.data;
+          })
+    },
+
+    getRecipeIngredients() {
+      this.$http.get('/recipe/ingredients', {
+        params: {
+          recipeId: this.recipeId,
+        }
+      })
+          .then(response => {
+            this.recipeIngredients = response.data;
+          })
+          .catch(error => {
+            this.errorResponse = error.response.data;
+          })
+    },
+
+    getAllMeasureUnits() {
+      this.$http.get('/recipe/measureunits')
+          .then(response => {
+            this.measureUnits = response.data;
+          })
+          .catch(error => {
+            this.errorResponse = error.response.data;
+          })
+    },
+
+    navigateToAddedRecipe(recipeId) {
+      router.push({
+        name: 'recipeRoute',
+        query:{
+          recipeId: recipeId
+        },
+      })
+    },
+
+    checkIfLoggedIn() {
+      if (this.userId > 0) {
+        this.isLoggedIn = true;
       }
-    })
-        .then(response => {
-          this.recipeIngredients = response.data;
-        })
-        .catch(error => {
-          this.errorResponse = error.response.data;
-        })
+    },
   },
-
-  checkIfLoggedIn()
-  {
-    if (this.userId > 0) {
-      this.isLoggedIn = true;
-    }
+  mounted() {
+    this.checkIfLoggedIn()
+    this.getAllMeasureUnits()
+    this.getRecipeIngredients()
   }
-,
-}
-,
-mounted()
-{
-  this.checkIfLoggedIn()
-}
 }
 </script>

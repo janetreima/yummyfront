@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col col-7">
-        <div @click="$router.go(-1)" class="hover-cursor">
+        <div @click="$router.push('/')" class="hover-cursor">
         <font-awesome-icon  :icon="['fas', 'chevron-left']" size="lg" />
         </div>
         <div class="d-flex align-items-center gap-3 mt-3">
@@ -103,7 +103,7 @@ export default {
     }
   },
   methods: {
-    getRecipe(recipeId) {
+    getRecipe() {
       this.$http.get('/recipe', {
         params: {
           recipeId: this.recipeId,

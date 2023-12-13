@@ -105,66 +105,84 @@ export default {
             allergenName: '',
             isAvailable: true
           }
-        ]
+        ],
+        recipeIdInfo:
+            {
+              recipeId: 0,
+            }
       }
-
     }
-
 
   },
   methods: {
-    addRecipeMoveToAddingIngredients() {
-      this.saveRecipe();
-      router.push('/recipe/addrecipe/ingredients')
-    },
+    async addRecipeMoveToAddingIngredients() {
+      await this.saveRecipe();
+      this.navigateToAddRecipeIngredients(this.recipeIdInfo.recipeId)
+    }
+    ,
     requiredFieldsNotFilled() {
       this.errorMessage = 'Palun taida koik info'
       setTimeout(this.resetErrorMessage, 2000)
-    },
+    }
+    ,
     allRequiredDataFilled() {
       return this.recipeDetailedDto.recipeName > 0 && this.recipeDetailedDto.courseId > 0 && this.recipeDetailedDto.timeMinute > 0 && this.recipeDetailedDto.description.length > 0 && this.recipeDetailedDto.imageData.length > 0
-    },
+    }
+    ,
 
     setImageToRecipe(imageDataIn64) {
       this.recipeDetailedDto.imageData = imageDataIn64;
-    },
+    }
+    ,
     setCourseId(selectedCourseId) {
       this.recipeDetailedDto.courseId = selectedCourseId;
-    },
+    }
+    ,
 
-    saveRecipe() {
-      this.$http.post("/recipe", this.recipeDetailedDto, {
+    async saveRecipe() {
+      const response = await this.$http.post("/recipe", this.recipeDetailedDto, {
         params: {
           userId: this.userId
         }
       }).then(response => {
-        console.log(response)
+        this.recipeIdInfo = response.data
         this.successMessage = 'koik OK!!! Retsept' + this.recipeDetailedDto.recipeName + 'lisatud!'
         setTimeout(this.resetSuccessMessage, 2000)
       }).catch(error => {
         this.errorMessage = 'Valesti!'
         setTimeout(this.resetSuccessMessage, 2000)
       })
-    },
+    }
+    ,
 
     resetSuccessMessage() {
       this.successMessage = ''
-    },
+    }
+    ,
     resetErrorMessage() {
       this.errorMessage = '';
-    },
+    }
+    ,
     openLogOutModal() {
       this.$refs.logOutModal.$refs.modalRef.openModal()
-    },
+    }
+    ,
     checkIfLoggedIn() {
       if (this.userId > 0) {
         this.isLoggedIn = true;
       }
     },
-  },
-
-  mounted() {
-    this.checkIfLoggedIn()
+    navigateToAddRecipeIngredients(recipeId) {
+      router.push({
+        name: 'addRecipeIngredientsRoute',
+        query: {
+          recipeId: recipeId
+        },
+      });
+    },
+    mounted() {
+      this.checkIfLoggedIn()
+    }
   }
 }
 </script>

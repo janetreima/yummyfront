@@ -54,7 +54,7 @@
   </div>
 
   <div>
-    <button @click="addRecipeMoveToAddingIngredients" type="button" class="btn btn-outline-success m-3">Edasi koostisosi
+    <button @click="saveRecipe" type="button" class="btn btn-outline-success m-3">Edasi koostisosi
       lisama
     </button>
   </div>
@@ -115,39 +115,36 @@ export default {
 
   },
   methods: {
-    async addRecipeMoveToAddingIngredients() {
-      await this.saveRecipe();
-      this.navigateToAddRecipeIngredients(this.recipeIdInfo.recipeId)
-    }
-    ,
+    // async addRecipeMoveToAddingIngredients() {
+    //   await this.saveRecipe();
+    //   this.navigateToAddRecipeIngredients(this.recipeIdInfo.recipeId)
+    // },
+
     requiredFieldsNotFilled() {
       this.errorMessage = 'Palun taida koik info'
       setTimeout(this.resetErrorMessage, 2000)
-    }
-    ,
+    },
+
     allRequiredDataFilled() {
       return this.recipeDetailedDto.recipeName > 0 && this.recipeDetailedDto.courseId > 0 && this.recipeDetailedDto.timeMinute > 0 && this.recipeDetailedDto.description.length > 0 && this.recipeDetailedDto.imageData.length > 0
-    }
-    ,
+    },
 
     setImageToRecipe(imageDataIn64) {
       this.recipeDetailedDto.imageData = imageDataIn64;
-    }
-    ,
+    },
+
     setCourseId(selectedCourseId) {
       this.recipeDetailedDto.courseId = selectedCourseId;
-    }
-    ,
+    },
 
-    async saveRecipe() {
-      const response = await this.$http.post("/recipe", this.recipeDetailedDto, {
+    saveRecipe() {
+      this.$http.post("/recipe", this.recipeDetailedDto, {
         params: {
           userId: this.userId
         }
       }).then(response => {
         this.recipeIdInfo = response.data
-        this.successMessage = 'koik OK!!! Retsept' + this.recipeDetailedDto.recipeName + 'lisatud!'
-        setTimeout(this.resetSuccessMessage, 2000)
+        this.navigateToAddRecipeIngredients(this.recipeIdInfo.recipeId)
       }).catch(error => {
         this.errorMessage = 'Valesti!'
         setTimeout(this.resetSuccessMessage, 2000)

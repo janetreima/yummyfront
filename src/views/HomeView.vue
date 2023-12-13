@@ -69,16 +69,13 @@ export default {
     },
 
     handleRecipeFiltering(filteredRecipesRequest) {
-      console.log("Received filtered recipes request:", filteredRecipesRequest);
       this.filteredRecipesRequest = filteredRecipesRequest
-      console.log("set info to data block")
       this.findRecipesByFilter();
     },
 
     findRecipesByFilter() {
       this.$http.post('recipes/filtered', this.filteredRecipesRequest
       ).then(response => {
-        console.log("response datasse backendist info:", response)
         this.recipes = response.data
       }).catch(error => {
         this.errorResponse = error.response.data;

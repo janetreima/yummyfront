@@ -1,7 +1,7 @@
 
 <template>
   <div v-for="allergen in allergens" :key="allergen.allergenId"  class="form-check">
-    <input class="form-check-input" type="checkbox" value="">
+    <input v-model="allergen.isAvailable" class="form-check-input" type="checkbox" value="">
     <label class="form-check-label" for="flexCheckDefault">
       {{ allergen.allergenName }}
     </label>
@@ -30,6 +30,9 @@ export default {
             this.allergens = response.data;
           })
 
+    },
+    saveAllergensToRecipe() {
+      this.$http.post('recipe/allergens')
     },
 
   },

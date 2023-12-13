@@ -1,12 +1,20 @@
 <template>
   <div class="container-fluid">
     <div>
-        <ul class="list-group list-group-flush w-50">
-          <li v-for="recipeIngredient in recipeIngredients" :key="recipeIngredient.ingredientId"
-              class="list-group-item">{{ recipeIngredient.quantity }}
-            {{ recipeIngredient.measureUnitName }} {{ recipeIngredient.ingredientName }}
-          </li>
-        </ul>
+      <ul class="list-group list-group-flush w-50">
+        <li v-for="recipeIngredient in recipeIngredients" :key="recipeIngredient.ingredientId"
+            :id="recipeIngredient.ingredientId"
+            class="list-group-item">
+          <div class="d-flex justify-content-between">
+            <div>{{ recipeIngredient.quantity }}
+              {{ recipeIngredient.measureUnitName }} {{ recipeIngredient.ingredientName }}
+            </div>
+            <div>
+              <font-awesome-icon @click="deleteRecipeIngredientAndRefreshList(recipeIngredient.ingredientId)" :icon="['fas', 'xmark']"/>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
     <h5 class="mt-3">
       Lisa koostisosad
@@ -16,9 +24,12 @@
              placeholder="Koostisosa">
       <input v-model="ingredientInfo.quantity" type="number" class="form-control narrow-input input-border-black"
              placeholder="Kogus">
-      <select v-model="ingredientInfo.measureUnitId" class="form-select narrow-input input-border-black" id="inputGroupSelect04">
+      <select v-model="ingredientInfo.measureUnitId" class="form-select narrow-input input-border-black"
+              id="inputGroupSelect04">
         <option selected disabled>ühik</option>
-        <option v-for="measureUnit in measureUnits" :key="measureUnit.id" :value="measureUnit.id" >{{measureUnit.name}}</option>
+        <option v-for="measureUnit in measureUnits" :key="measureUnit.id" :value="measureUnit.id">
+          {{ measureUnit.name }}
+        </option>
       </select>
       <button @click="addRecipeIngredient" class="btn btn-outline-dark narrow-input" type="button">+ Lisa</button>
     </div>
@@ -75,10 +86,17 @@ export default {
       })
           .then(response => {
             this.getRecipeIngredients()
+            this.resetIngredientInsertFields();
           })
           .catch(error => {
             this.errorResponse = error.response.data;
           })
+    },
+
+    resetIngredientInsertFields: function () {
+      this.ingredientInfo.ingredientName = ''
+      this.ingredientInfo.quantity = 0
+      this.ingredientInfo.measureUnitId = 0
     },
 
     getRecipeIngredients() {
@@ -108,9 +126,22 @@ export default {
     navigateToAddedRecipe(recipeId) {
       router.push({
         name: 'recipeRoute',
-        query:{
+        query: {
           recipeId: recipeId
         },
+      })
+    },
+
+    async deleteRecipeIngredientAndRefreshList(ingredientId) {
+      await this.deleteRecipeIngredient(ingredientId)
+      this.getRecipeIngredients()
+    },
+
+    async deleteRecipeIngredient(ingredientId) {
+      await this.$http.delete('/recipe/ingredient', {
+        params: {
+          ingredientId: ingredientId,
+        }
       })
     },
 

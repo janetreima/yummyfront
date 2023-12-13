@@ -37,7 +37,7 @@ const routes = [
         path: '/myrecipes',
         name: 'userRecipesRoute',
         component: UserRecipesView
-    }
+    },
 ]
 
 const router = createRouter({

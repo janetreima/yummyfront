@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-wrap align-items-start align-self-start">
+    <div class="d-flex flex-wrap align-items-start align-self-start">
     <RecipeCard ref="recipeCardRef" v-for="recipe in recipes" :key="recipe.recipeId" :recipe="recipe"/>
   </div>
 </template>
@@ -14,9 +14,7 @@ export default {
     recipes: Array,
   },
   data() {
-    return {
-
-    }
+    return {}
   },
 }
 </script>

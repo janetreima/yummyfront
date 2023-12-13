@@ -47,7 +47,7 @@
         </p>
       </div>
       <div class="col col-5">
-        <RecipeImage :image-data-base64="recipe.imageData"/>
+        <RecipeImage id="img-size-orig" :image-data-base64="recipe.imageData"/>
         <div v-if="isLoggedIn && userId === recipe.authorUserId" class="d-flex justify-content-end">
           <button type="button" class="btn btn-outline-dark me-2">Muuda</button>
           <button type="button" class="btn btn-outline-dark me-2">Kustuta</button>

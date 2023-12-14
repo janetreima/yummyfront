@@ -37,10 +37,7 @@
             <input v-model="recipeDetailedDto.description" type="text" style="width: 600px; height: 200px;">
           </p>
         </div>
-        <h5 class="mt-3">
-          Allergeenid
-        </h5>
-        <AllergensChoice/>
+
         <h5 class="mt-3">
           Pilt
         </h5>
@@ -95,7 +92,6 @@ export default {
             measureUnitName: '',
             quantity: 0
           }
-
         ],
         description: '',
         imageData: '',
@@ -150,7 +146,7 @@ export default {
         setTimeout(this.resetSuccessMessage, 2000)
       }).catch(error => {
         this.errorMessage = 'Valesti!'
-        setTimeout(this.resetSuccessMessage, 2000)
+        setTimeout(this.resetErrorMessage, 2000)
       })
     }
     ,

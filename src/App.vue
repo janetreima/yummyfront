@@ -1,7 +1,8 @@
 <template>
   <LogInModal ref="loginModalRef" @event-login-success="handleLogin"/>
   <LogOutModal ref="logOutModal" @event-execute-logout="handleLogout"/>
-  <RegistrationModal ref="registrationModalRef"/>
+  <RegistrationModal ref="registrationModalRef"/>#
+  <ThankYouModal @recipe-saved-event="openThankYouModal" ref="thankYouModalRef"/>
 
   <div class="d-flex justify-content-between ms-5 me-5 mt-4 mb-5">
     <div class="">
@@ -34,9 +35,10 @@ import LogInModal from "@/components/modal/custom/LoginModal.vue";
 import LogOutModal from "@/components/modal/custom/LogOutModal.vue";
 import RegistrationModal from "@/components/RegistrationModal.vue";
 import router from "@/router";
+import ThankYouModal from "@/components/modal/custom/ThankYouModal.vue";
 
 export default {
-  components: {LogInModal, LogOutModal, RegistrationModal},
+  components: {ThankYouModal, LogInModal, LogOutModal, RegistrationModal},
   data() {
     return {
       isLoggedIn: false,
@@ -70,11 +72,16 @@ export default {
       this.$refs.registrationModalRef.$refs.modalRef.openModal()
     },
 
+    openThankYouModal() {
+      this.$refs.thankYouModalRef.$refs.modalRef.openModal()
+    },
+
     goToAddRecipe() {
       router.push({
         name: 'addRecipeRoute'
       });
     },
+
   }
 }
 </script>

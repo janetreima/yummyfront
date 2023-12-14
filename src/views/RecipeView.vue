@@ -1,9 +1,11 @@
 <template>
+
   <div class="container-fluid">
+
     <div class="row">
       <div class="col col-7">
         <div @click="$router.push('/')" class="hover-cursor">
-        <font-awesome-icon  :icon="['fas', 'chevron-left']" size="lg" />
+          <font-awesome-icon :icon="['fas', 'chevron-left']" size="lg"/>
         </div>
         <div class="d-flex align-items-center gap-3 mt-3">
           <h1>
@@ -12,10 +14,10 @@
           <ul class="list-group list-group-horizontal">
             <div v-for="allergenInfo in recipe.allergenInfos">
               <li class="list-group-item border-0">
-               <div class="d-flex align-items-center gap-2">
-                 <AllergenIcon :allergen-id="allergenInfo.allergenId"/>
-                {{ allergenInfo.allergenName }}
-               </div>
+                <div class="d-flex align-items-center gap-2">
+                  <AllergenIcon :allergen-id="allergenInfo.allergenId"/>
+                  {{ allergenInfo.allergenName }}
+                </div>
               </li>
             </div>
           </ul>
@@ -48,6 +50,7 @@
       </div>
       <div class="col col-5">
         <RecipeImage :image-data-base64="recipe.imageData"/>
+        <br>
         <div v-if="isLoggedIn && userId === recipe.authorUserId" class="d-flex justify-content-end">
           <button type="button" class="btn btn-outline-dark me-2">Muuda</button>
           <button type="button" class="btn btn-outline-dark me-2">Kustuta</button>
@@ -64,13 +67,16 @@ import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import AllergenIcon from "@/components/icon/AllergenIcon.vue";
 import {useRoute} from "vue-router";
 import RecipeImage from "@/components/RecipeCardImage.vue";
+import SuccessAlert from "@/components/alert/SuccessAlert.vue";
+import ThankYouModal from "@/components/modal/custom/ThankYouModal.vue";
 
 export default {
   name: 'RecipeView',
-  components: {RecipeImage, AllergenIcon, FontAwesomeIcon},
+  components: {ThankYouModal, SuccessAlert, RecipeImage, AllergenIcon, FontAwesomeIcon},
   data() {
     return {
       recipeId: Number(useRoute().query.recipeId),
+      successMessage: '',
       recipe: {
         authorUserId: 0,
         authorUsername: '',
@@ -128,7 +134,12 @@ export default {
         this.isLoggedIn = true;
       }
     },
+
+
+
+
   },
+
 
   mounted() {
     this.getRecipe();

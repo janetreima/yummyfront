@@ -5,6 +5,10 @@
         <Filter @event-recipes-filter-info="handleRecipeFiltering"/>
       </div>
       <div class="col col-10">
+        <ErrorAlert :error-message="errorMessage"/>
+        <!--        <div v-if="!filteredRecipesExist">-->
+        <!--        <h1>Sobivaid retsepte ei leitud, muuda filtrit ja proovi uuesti :)</h1>-->
+        <!--        </div>-->
         <AllRecipeCards ref="allRecipeCardsRef" :recipes="recipes" :key="recipes"/>
       </div>
     </div>
@@ -17,10 +21,11 @@ import RecipeCard from "@/components/RecipeCard.vue";
 import Filter from "@/components/Filter.vue";
 import AllRecipeCards from "@/components/AllRecipeCards.vue";
 import AddRecipeView from "@/views/AddRecipeView.vue";
+import ErrorAlert from "@/components/alert/ErrorAlert.vue";
 
 export default {
   name: 'HomeView',
-  components: {AllRecipeCards, Filter, RecipeCard, AddRecipeView},
+  components: {ErrorAlert, AllRecipeCards, Filter, RecipeCard, AddRecipeView},
   data() {
     return {
       recipes: [
@@ -56,6 +61,8 @@ export default {
       },
       userId: 0,
       isLoggedIn: Boolean,
+      filteredRecipesExist: true,
+      errorMessage: '',
     }
   },
   methods: {
@@ -68,18 +75,37 @@ export default {
       })
     },
 
-    handleRecipeFiltering(filteredRecipesRequest) {
+    async handleRecipeFiltering(filteredRecipesRequest) {
       this.filteredRecipesRequest = filteredRecipesRequest
-      this.findRecipesByFilter();
+      await this.findRecipesByFilter();
+      this.checkFilteredRecipesExist()
     },
 
-    findRecipesByFilter() {
-      this.$http.post('recipes/filtered', this.filteredRecipesRequest
+    async findRecipesByFilter() {
+      await this.$http.post('recipes/filtered', this.filteredRecipesRequest
       ).then(response => {
         this.recipes = response.data
       }).catch(error => {
         this.errorResponse = error.response.data;
       })
+    },
+
+    checkFilteredRecipesExist() {
+      if (this.recipes.length === 0) {
+        // this.filteredRecipesExist = false;
+        this.handleErrorAlert()
+      } else {
+        // this.filteredRecipesExist = true;
+        this.resetErrorAlert()
+      }
+    },
+
+    handleErrorAlert() {
+      this.errorMessage = 'Sobivaid retsepte ei leitud, muuda filtrit ja proovi uuesti :)'
+    },
+
+    resetErrorAlert() {
+      return this.errorMessage = '';
     },
   },
   mounted() {

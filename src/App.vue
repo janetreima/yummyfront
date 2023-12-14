@@ -6,7 +6,7 @@
   <div class="d-flex justify-content-between ms-5 me-5 mt-4 mb-5">
     <div class="">
       <router-link to="/" class="site-heading">
-        <h1>yum.my</h1>
+        <h1 id="site-header">yum.my</h1>
       </router-link>
     </div>
     <div>

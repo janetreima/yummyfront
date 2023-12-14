@@ -1,5 +1,5 @@
 <template>
-  <div class="card border-dark m-3" style="width: 14rem;">
+  <div class="card border-dark rounded-0 m-3" style="width: 14rem;">
     <RecipeImage :image-data-base64="recipe.imageData"/>
     <div class="card-body">
       <div class="d-flex flex-column">
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="d-flex justify-content-end">
-        <button class="btn btn-outline-dark" type="button" @click="navigateToRecipe(recipe.recipeId)">Vaata retsepti</button>
+        <button class="btn btn-sm btn-outline-dark" type="button" @click="navigateToRecipe(recipe.recipeId)">Vaata ></button>
       </div>
     </div>
   </div>

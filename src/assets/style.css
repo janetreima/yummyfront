@@ -40,3 +40,25 @@
 #img-size-orig {
     height: 100%;
 }
+
+.btn-outline-dark {
+    border-radius: 0 !important;
+}
+
+.card-img-top {
+    border-radius: 0 !important;
+}
+
+#site-header {
+    font-size: 56px !important;
+}
+
+.alert-light {
+    border-color: orangered;
+    color: orangered;
+    border-radius: 0;
+}
+
+#alert-narrow {
+    width: 50% !important;
+}

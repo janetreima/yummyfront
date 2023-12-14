@@ -7,7 +7,6 @@
       <div>
         <ErrorAlert :error-message="errorMessage"/>
       </div>
-
       <div class="mt-4 mb-4">
         <div class="input-group mb-3">
           <span class="input-group-text">Kasutajanimi</span>

@@ -12,7 +12,7 @@
 import checkBox from "@/components/CheckBox.vue";
 
 export default {
-  name: 'AllergensChoice',
+  name: 'AllergensChoiceCheckbox',
   data() {
     return {
       allergens: [

@@ -33,7 +33,7 @@
       </select>
       <button @click="addRecipeIngredient" class="btn btn-outline-dark narrow-input" type="button">+ Lisa</button>
     </div>
-    <AllergensChoice @emit-allergeninfo-event="assignAllergenInfo"/>
+    <AllergensChoiceCheckbox @emit-allergeninfo-event="assignAllergenInfo"/>
     <button @click="addAllergensToRecipe()" type="button" class="btn btn-outline-success m-3">Valmis
     </button>
   </div>
@@ -43,11 +43,12 @@
 import AllergenIcon from "@/components/icon/AllergenIcon.vue";
 import {useRoute} from "vue-router";
 import router from "@/router";
-import AllergensChoice from "@/components/AllergensChoiseCheckbox.vue";
+import AllergensChoiceCheckbox from "@/components/AllergensChoiseCheckbox.vue";
+
 
 export default {
   name: 'AddRecipeIngredientsView',
-  components: {AllergenIcon},
+  components: {AllergensChoiceCheckbox, AllergenIcon},
   data() {
     return {
       userId: Number(sessionStorage.getItem('userId')),

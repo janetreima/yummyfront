@@ -1,7 +1,7 @@
 <template>
   <LogInModal ref="loginModalRef" @event-login-success="handleLogin"/>
   <LogOutModal ref="logOutModal" @event-execute-logout="handleLogout"/>
-  <RegistrationModal ref="registrationModalRef"/>#
+  <RegistrationModal ref="registrationModalRef"/>
   <ThankYouModal @recipe-saved-event="openThankYouModal" ref="thankYouModalRef"/>
 
   <div class="d-flex justify-content-between ms-5 me-5 mt-4 mb-5">

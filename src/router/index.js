@@ -5,6 +5,7 @@ import RecipeView from "@/views/RecipeView.vue";
 import AddRecipeView from "@/views/AddRecipeView.vue";
 import UserRecipesView from "@/views/UserRecipesView.vue";
 import AddRecipeIngredientsView from "@/views/AddRecipeIngredientsView.vue";
+import EditRecipeView from "@/views/EditRecipeView.vue";
 
 const routes = [
     {
@@ -18,16 +19,20 @@ const routes = [
         component: ErrorView,
     },
     {
-        path: '/recipe/addrecipe',
+        path: '/recipe/add',
         name: 'addRecipeRoute',
         component: AddRecipeView,
+    },
+    {
+        path: '/recipe/edit',
+        name: 'editRecipeRoute',
+        component: EditRecipeView,
     },
     {
         path: '/recipe/addrecipe/ingredients',
         name: 'addRecipeIngredientsRoute',
         component: AddRecipeIngredientsView,
     },
-
     {
         path: '/recipe',
         name: 'recipeRoute',

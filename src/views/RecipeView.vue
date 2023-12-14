@@ -50,7 +50,7 @@
       <div class="col col-5">
         <RecipeImage id="img-size-orig" :image-data-base64="recipe.imageData"/>
         <div v-if="isLoggedIn && userId === recipe.authorUserId" class="d-flex justify-content-end">
-          <button type="button" class="btn btn-outline-dark me-2">Muuda</button>
+          <button @click="openEditRecipeView(recipeId)" type="button" class="btn btn-outline-dark me-2">Muuda</button>
           <button @click="openDeleteRecipeModal" type="button" class="btn btn-outline-dark me-2">Kustuta</button>
         </div>
         <div v-else>
@@ -139,6 +139,15 @@ export default {
       router.push({
         name: 'homeRoute'
       })
+    },
+
+    openEditRecipeView(recipeId) {
+      router.push({
+        name: 'editRecipeRoute',
+        query:{
+          recipeId: recipeId
+        },
+      });
     },
 
     convertMinutesToHoursAndMinutes() {

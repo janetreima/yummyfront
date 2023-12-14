@@ -1,14 +1,16 @@
 
 <template>
-  <div v-for="allergen in allergens" :key="allergen.allergenId"  class="form-check">
-    <input v-model="allergen.isAvailable" class="form-check-input" type="checkbox" value="">
-    <label class="form-check-label" for="flexCheckDefault">
+  <div v-for="allergen in allergens" :key="allergen.allergenId"   class="form-check">
+    <input v-model="allergen.isAvailable" @change="passAllergenInfo" class="form-check-input" type="checkbox" :id="'checkbox' + allergen.allergenId" >
+    <label class="form-check-label" :for=" 'checkbox' + allergen.allergenId">
       {{ allergen.allergenName }}
     </label>
   </div>
 </template>
 
 <script>
+import checkBox from "@/components/CheckBox.vue";
+
 export default {
   name: 'AllergensChoice',
   data() {
@@ -17,9 +19,9 @@ export default {
         {
           allergenId: 0,
           allergenName: '',
-          isAvailable: true,
+          isAvailable: false,
         }
-      ],
+      ]
     }
   },
 
@@ -29,8 +31,11 @@ export default {
           .then(response =>{
             this.allergens = response.data;
           })
-
     },
+    passAllergenInfo() {
+      this.$emit ('emit-allergeninfo-event', this.allergens)
+    },
+
     saveAllergensToRecipe() {
       this.$http.post('recipe/allergens')
     },

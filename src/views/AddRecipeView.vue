@@ -6,11 +6,11 @@
     </div>
     <div class="row">
       <div class="col col-7">
-          <h5 class="mt-3">
-            Retsepti nimi
-          </h5>
-          <input v-model="recipeDetailedDto.recipeName" type="text" class="form-control w-50"
-                 aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+        <h5 class="mt-3">
+          Retsepti nimi
+        </h5>
+        <input v-model="recipeDetailedDto.recipeName" type="text" class="form-control w-50"
+               aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
         <h5 class="mt-3">
           Käik
         </h5>

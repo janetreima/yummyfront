@@ -33,7 +33,8 @@
       </select>
       <button @click="addRecipeIngredient" class="btn btn-outline-dark narrow-input" type="button">+ Lisa</button>
     </div>
-    <button @click="navigateToAddedRecipe(recipeId)" type="button" class="btn btn-outline-success m-3">Valmis
+    <AllergensChoice @emit-allergeninfo-event="assignAllergenInfo"/>
+    <button @click="addAllergensToRecipe()" type="button" class="btn btn-outline-success m-3">Valmis
     </button>
   </div>
 </template>
@@ -42,6 +43,7 @@
 import AllergenIcon from "@/components/icon/AllergenIcon.vue";
 import {useRoute} from "vue-router";
 import router from "@/router";
+import AllergensChoice from "@/components/AllergensChoiseCheckbox.vue";
 
 export default {
   name: 'AddRecipeIngredientsView',
@@ -73,7 +75,15 @@ export default {
           id: 0,
           name: '',
         }
+      ],
+      allergenInfo: [
+        {
+          allergenId: 0,
+          allergenName: '',
+          isAvailable: false,
+        }
       ]
+
     }
   },
   methods: {
@@ -121,6 +131,24 @@ export default {
           .catch(error => {
             this.errorResponse = error.response.data;
           })
+    },
+    assignAllergenInfo(allergenInfo) {
+      this.allergenInfo = allergenInfo;
+    },
+
+    addAllergensToRecipe() {
+      this.$http.post('/recipe/allergens', this.allergenInfo, {
+        params: {
+          recipeId: this.recipeId,
+        }
+      }).then(response => {
+        this.navigateToAddedRecipe(this.recipeId)
+        this.$emit ('recipe-saved-event')
+
+      }).catch(error=> {
+        this.errorMessage = 'Midagi valesti!'
+        setTimeout(this.resetErrorMessage, 2000)
+      })
     },
 
     navigateToAddedRecipe(recipeId) {

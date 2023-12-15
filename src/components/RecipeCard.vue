@@ -1,6 +1,6 @@
 <template>
   <div class="card border-dark rounded-0 m-3" style="width: 14rem;">
-    <RecipeImage :image-data-base64="recipe.imageData"/>
+    <RecipeCardImage :image-data-base64="recipe.imageData"/>
     <div class="card-body">
       <div class="d-flex flex-column">
         <h5 class="card-title">
@@ -29,12 +29,13 @@
 </template>
 
 <script>
-import RecipeImage from "@/components/RecipeCardImage.vue";
 import router from "@/router";
+import RecipeCardImage from "@/components/RecipeCardImage.vue";
+
 
 export default {
   name: 'RecipeCard',
-  components: {RecipeImage},
+  components: {RecipeCardImage},
   props: {
     recipe: {}
   },

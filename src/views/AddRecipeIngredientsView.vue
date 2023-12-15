@@ -1,41 +1,52 @@
 <template>
   <div class="container-fluid">
-    <div>
-      <ul class="list-group list-group-flush w-50">
-        <li v-for="recipeIngredient in recipeIngredients" :key="recipeIngredient.ingredientId"
-            :id="recipeIngredient.ingredientId"
-            class="list-group-item">
-          <div class="d-flex justify-content-between">
-            <div>{{ recipeIngredient.quantity }}
-              {{ recipeIngredient.measureUnitName }} {{ recipeIngredient.ingredientName }}
+    <div class="row">
+      <div class="col col-6">
+      <h5 class="mt-3">
+        Koostisosad
+      </h5>
+      <div>
+        <ul class="list-group list-group-flush">
+          <li v-for="recipeIngredient in recipeIngredients" :key="recipeIngredient.ingredientId"
+              :id="recipeIngredient.ingredientId"
+              class="list-group-item">
+            <div class="d-flex justify-content-between">
+              <div>{{ recipeIngredient.quantity }}
+                {{ recipeIngredient.measureUnitName }} {{ recipeIngredient.ingredientName }}
+              </div>
+              <div>
+                <font-awesome-icon @click="deleteRecipeIngredientAndRefreshList(recipeIngredient.ingredientId)"
+                                   :icon="['fas', 'xmark']"/>
+              </div>
             </div>
-            <div>
-              <font-awesome-icon @click="deleteRecipeIngredientAndRefreshList(recipeIngredient.ingredientId)" :icon="['fas', 'xmark']"/>
-            </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="input-group">
+        <input v-model="ingredientInfo.ingredientName" type="text" class="form-control wider-input input-border-black"
+               placeholder="Koostisosa">
+        <input v-model="ingredientInfo.quantity" type="number" min="0"
+               class="form-control narrow-input input-border-black"
+               placeholder="Kogus">
+        <select v-model="ingredientInfo.measureUnitId" class="form-select narrow-input input-border-black"
+                id="ingredientMeasureInfo">
+          <option id="option-placeholder" selected disabled>ühik</option>
+          <option v-for="measureUnit in measureUnits" :key="measureUnit.id" :value="measureUnit.id">
+            {{ measureUnit.name }}
+          </option>
+        </select>
+        <button @click="addRecipeIngredient" class="btn btn-outline-dark narrow-input" type="button">+ Lisa</button>
+      </div>
+      <h5 class="mt-5 mb-3">
+        Allergeenid
+      </h5>
+      <AllergensChoiceCheckbox @emit-allergeninfo-event="assignAllergenInfo"/>
+
+      <button @click="addAllergensToRecipe()" type="button" class="btn btn-outline-success mt-4">Salvesta
+      </button>
+
     </div>
-    <h5 class="mt-3">
-      Lisa koostisosad
-    </h5>
-    <div class="input-group w-50">
-      <input v-model="ingredientInfo.ingredientName" type="text" class="form-control wider-input input-border-black"
-             placeholder="Koostisosa">
-      <input v-model="ingredientInfo.quantity" type="number" class="form-control narrow-input input-border-black"
-             placeholder="Kogus">
-      <select v-model="ingredientInfo.measureUnitId" class="form-select narrow-input input-border-black"
-              id="inputGroupSelect04">
-        <option selected disabled>ühik</option>
-        <option v-for="measureUnit in measureUnits" :key="measureUnit.id" :value="measureUnit.id">
-          {{ measureUnit.name }}
-        </option>
-      </select>
-      <button @click="addRecipeIngredient" class="btn btn-outline-dark narrow-input" type="button">+ Lisa</button>
     </div>
-    <AllergensChoiceCheckbox @emit-allergeninfo-event="assignAllergenInfo"/>
-    <button @click="addAllergensToRecipe()" type="button" class="btn btn-outline-success m-3">Valmis
-    </button>
   </div>
 </template>
 
@@ -144,9 +155,9 @@ export default {
         }
       }).then(response => {
         this.navigateToAddedRecipe(this.recipeId)
-        this.$emit ('recipe-saved-event')
+        this.$emit('recipe-saved-event')
 
-      }).catch(error=> {
+      }).catch(error => {
         this.errorMessage = 'Midagi valesti!'
         setTimeout(this.resetErrorMessage, 2000)
       })

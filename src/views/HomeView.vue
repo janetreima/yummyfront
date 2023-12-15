@@ -4,7 +4,7 @@
       <div class="col col-2">
         <Filter @event-recipes-filter-info="handleRecipeFiltering"/>
       </div>
-      <div class="col col-10">
+      <div class="col col-10 mb-5">
         <ErrorAlert :error-message="errorMessage"/>
         <!--        <div v-if="!filteredRecipesExist">-->
         <!--        <h1>Sobivaid retsepte ei leitud, muuda filtrit ja proovi uuesti :)</h1>-->

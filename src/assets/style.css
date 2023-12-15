@@ -12,7 +12,7 @@
 }
 
 .site-heading:hover {
-    color: maroon;
+    color: orangered;
 }
 
 #time-s {
@@ -45,6 +45,12 @@
     border-radius: 0 !important;
 }
 
+.btn-outline-success {
+    border-radius: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
 .form-control {
     border-radius: 0 !important;
 }
@@ -65,4 +71,8 @@
 
 #alert-narrow {
     width: 50% !important;
+}
+
+#option-placeholder {
+    color: black !important;
 }

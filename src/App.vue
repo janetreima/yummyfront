@@ -11,12 +11,11 @@
       </router-link>
     </div>
     <div>
-      <nav>
+      <nav class="mt-3">
         <template v-if="isLoggedIn">
-          <button @click="$router.go(-1)" type="button" class="btn btn-outline-dark me-2">Tagasi</button>
           <button @click="$router.push('/myrecipes')" type="button" class="btn btn-outline-dark me-2">Minu retseptid</button>
           <button @click="goToAddRecipe" type="button" class="btn btn-outline-dark me-2">Lisa retsept</button>
-          <button @click="openLogOutModal" type="button" class="btn btn-outline-dark">Log Out</button>
+          <button @click="openLogOutModal" type="button" class="btn btn-outline-dark">Logi välja</button>
         </template>
         <template v-else>
           <button @click="openLoginModal" type="button" class="btn btn-outline-dark me-2">Logi Sisse</button>

@@ -1,12 +1,9 @@
 <template>
   <DeleteRecipeModal @delete-recipe-event="deleteRecipe" ref="deleteRecipeModal"/>
   <div class="container-fluid">
-    <div class="row">
+    <div class="row mt-3 mb-3 p-0">
       <div class="col col-7">
-        <div @click="$router.push('/')" class="hover-cursor">
-          <font-awesome-icon :icon="['fas', 'chevron-left']" size="lg"/>
-        </div>
-        <div class="d-flex align-items-center gap-3 mt-3">
+        <div class="d-flex align-items-center gap-3">
           <h1>
             {{ recipe.recipeName }}
           </h1>
@@ -47,15 +44,19 @@
           {{ recipe.description }}
         </p>
       </div>
-      <div class="col col-5">
-        <RecipeImage id="img-size-orig" :image-data-base64="recipe.imageData"/>
-        <div v-if="isLoggedIn && userId === recipe.authorUserId" class="d-flex justify-content-end">
-          <button @click="openEditRecipeView(recipeId)" type="button" class="btn btn-outline-dark me-2">Muuda</button>
-          <button @click="openDeleteRecipeModal" type="button" class="btn btn-outline-dark me-2">Kustuta</button>
+      <div class="col col-5 p-0">
+        <div class="d-flex flex-column">
+          <RecipeImage :image-data-base64="recipe.imageData"/>
         </div>
-        <div v-else>
-          <button @click="$router.go(-1)" type="button" class="btn btn-outline-dark me-2">Tagasi</button>
-        </div>
+      </div>
+    </div>
+    <div class="row p-0 mb-5">
+      <div class="d-flex justify-content-end">
+      <button @click="$router.push('/')" type="button" class="btn btn-outline-dark me-2">Tagasi avalehele</button>
+      <div v-if="isLoggedIn && userId === recipe.authorUserId" class="d-flex justify-content-end">
+        <button @click="openEditRecipeView(recipeId)" type="button" class="btn btn-outline-dark me-2">Muuda</button>
+        <button @click="openDeleteRecipeModal" type="button" class="btn btn-outline-dark me-2">Kustuta</button>
+      </div>
       </div>
     </div>
   </div>
@@ -64,14 +65,14 @@
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import AllergenIcon from "@/components/icon/AllergenIcon.vue";
 import {useRoute} from "vue-router";
-import RecipeImage from "@/components/RecipeCardImage.vue";
 import LogOutModal from "@/components/modal/custom/LogOutModal.vue";
 import DeleteRecipeModal from "@/components/modal/custom/DeleteRecipeModal.vue";
 import router from "@/router";
+import RecipeImage from "@/components/RecipeImage.vue";
 
 export default {
   name: 'RecipeView',
-  components: {DeleteRecipeModal, LogOutModal, RecipeImage, AllergenIcon, FontAwesomeIcon},
+  components: {RecipeImage, DeleteRecipeModal, LogOutModal, AllergenIcon, FontAwesomeIcon},
   data() {
     return {
       recipeId: Number(useRoute().query.recipeId),
@@ -144,7 +145,7 @@ export default {
     openEditRecipeView(recipeId) {
       router.push({
         name: 'editRecipeRoute',
-        query:{
+        query: {
           recipeId: recipeId
         },
       });

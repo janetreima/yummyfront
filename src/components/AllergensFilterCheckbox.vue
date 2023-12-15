@@ -22,7 +22,7 @@ export default {
 },
   methods: {
     getAllAllergens() {
-      this.$http.get('/recipe/allergens')
+      this.$http.get('/allergens')
           .then(response => {
             this.allergens = response.data;
           })

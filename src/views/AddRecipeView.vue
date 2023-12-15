@@ -6,7 +6,10 @@
     </div>
     <div class="row">
       <div class="col col-7">
-        <h5 class="mt-3">
+        <h2>
+          Lisa retsept
+        </h2>
+        <h5 class="mt-5">
           Retsepti nimi
         </h5>
         <input v-model="recipeDetailedDto.recipeName" type="text" class="form-control w-50"
@@ -40,28 +43,24 @@
             Valmistamise juhised
           </h5>
           <p class="w-75">
-            <input v-model="recipeDetailedDto.description" type="text" style="width: 600px; height: 200px;">
+            <textarea v-model="recipeDetailedDto.description" type="text" style="width: 600px; height: 200px;"/>
           </p>
         </div>
         <h5 class="mt-3">
           Pilt
         </h5>
         <ImageInput @event-base-64="setImageToRecipe"/>
-
-
-
+        <div class="d-flex mt-4 mb-5">
+          <button @click="saveRecipe" type="button" class="btn btn-outline-success m-3">Edasi koostisosi
+            lisama
+          </button>
+        </div>
       </div>
       <div class="col col-5">
-        <img src="@/assets/recipethumbnail.png">
+
       </div>
 
     </div>
-  </div>
-
-  <div>
-    <button @click="saveRecipe" type="button" class="btn btn-outline-success m-3">Edasi koostisosi
-      lisama
-    </button>
   </div>
 </template>
 <script>

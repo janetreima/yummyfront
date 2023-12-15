@@ -2,7 +2,7 @@
 <template>
   <div>
     <select class="form-select w-50" v-model="selectedCourseId" @change="emitCourseId">
-    <option selected disabled value="0">Koik</option>
+    <option selected disabled value="0">Käik</option>
     <option v-for="course in courses" :key="course.courseId" :value="course.courseId" >{{course.courseName}}</option>
     </select>
   </div>

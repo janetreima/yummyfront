@@ -41,26 +41,24 @@
             Valmistamise juhised
           </h5>
           <p class="w-75">
-            <input v-model="recipe.description" type="text" style="width: 600px; height: 200px;">
+            <textarea v-model="recipe.description" type="text" style="width: 600px; height: 200px;"/>
           </p>
         </div>
         <h5 class="mt-3">
           Pilt
         </h5>
         <ImageInput @event-base-64="setImageToRecipe"/>
-
+        <div class="d-flex gap-2 mt-5 mb-5">
+          <button @click="$router.go(-1)" type="button" class="btn btn-outline-dark">Katkesta</button>
+          <button @click="editRecipe" type="button" class="btn btn-outline-success">Edasi koostisosi
+            muutma
+          </button>
+        </div>
       </div>
-      <div class="col col-5">
+      <div class="col col-5 pb-4">
         <RecipeImage id="img-size-orig" :image-data-base64="recipe.imageData"/>
       </div>
-
     </div>
-  </div>
-
-  <div>
-    <button @click="editRecipe" type="button" class="btn btn-outline-success m-3">Edasi koostisosi
-      muutma
-    </button>
   </div>
 </template>
 <script>

@@ -13,7 +13,7 @@
       </div>
       <div class="input-group mb-3">
         <span class="input-group-text">Parool</span>
-        <input v-model="userInfo.password" type="text" class="form-control">
+        <input v-model="userInfo.password" type="password" class="form-control">
       </div>
       <div class="input-group mb-3">
         <span class="input-group-text">email</span>

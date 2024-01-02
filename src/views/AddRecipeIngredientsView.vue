@@ -23,8 +23,6 @@
         </ul>
       </div>
       <div class="input-group">
-        <input v-model="ingredientInfo.ingredientName" type="text" class="form-control wider-input input-border-black"
-               placeholder="Koostisosa">
         <input v-model="ingredientInfo.quantity" type="number" min="0"
                class="form-control narrow-input input-border-black"
                placeholder="Kogus">
@@ -35,6 +33,8 @@
             {{ measureUnit.name }}
           </option>
         </select>
+        <input v-model="ingredientInfo.ingredientName" type="text" class="form-control wider-input input-border-black"
+               placeholder="Koostisosa">
         <button @click="addRecipeIngredient" class="btn btn-outline-dark narrow-input" type="button">+ Lisa</button>
       </div>
       <h5 class="mt-5 mb-3">
